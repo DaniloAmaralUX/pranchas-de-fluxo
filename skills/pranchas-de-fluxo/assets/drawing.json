@@ -1,0 +1,343 @@
+{
+  "title": "Arquivo de projetos",
+  "summary": "Simulação com dados fictícios. A pessoa arquiva um projeto, pode cancelar antes da confirmação e pode restaurá-lo depois.",
+  "evidence": [
+    {
+      "id": "Resumo da reunião · linha 1",
+      "file": "briefing.txt",
+      "excerpt": "A prancha original da technical-drawing deve continuar intacta."
+    },
+    {
+      "id": "Resumo da reunião · linha 2",
+      "file": "briefing.txt",
+      "excerpt": "A lista mantém o contexto e fica inerte enquanto a confirmação está aberta."
+    },
+    {
+      "id": "Resumo da reunião · linha 3",
+      "file": "briefing.txt",
+      "excerpt": "O diálogo identifica Portal do cliente e explica que o projeto pode ser restaurado."
+    },
+    {
+      "id": "Resumo da reunião · linha 4",
+      "file": "briefing.txt",
+      "excerpt": "Ao abrir, o foco começa em Cancelar. Esc ou Cancelar fecha a confirmação e devolve o foco ao acionador."
+    },
+    {
+      "id": "Resumo da reunião · linha 5",
+      "file": "briefing.txt",
+      "excerpt": "Ao confirmar, o projeto sai da lista ativa e o foco vai para o título do resultado."
+    },
+    {
+      "id": "Resumo da reunião · linha 6",
+      "file": "briefing.txt",
+      "excerpt": "O teste usa dados fictícios. Restaurar projeto recoloca o item e libera uma nova tentativa."
+    },
+    {
+      "id": "Resumo da reunião · linha 7",
+      "file": "briefing.txt",
+      "excerpt": "A primeira exibição apresenta a prancha e permite percorrer todas as telas pelo viewer."
+    }
+  ],
+  "scopeNotes": [
+    {
+      "statement": "A confirmação conserva a geometria da prancha de referência.",
+      "sources": [
+        "Resumo da reunião · linha 1"
+      ]
+    },
+    {
+      "statement": "A primeira visita abre na confirmação. As setas percorrem as quatro pranchas na ordem da revisão.",
+      "sources": [
+        "Resumo da reunião · linha 7"
+      ]
+    }
+  ],
+  "dependencies": "node_modules",
+  "modelScripts": [
+    "modelo-referencia.js",
+    "model.js"
+  ],
+  "drawings": [
+    {
+      "id": "lista",
+      "title": "Projetos ativos",
+      "description": "O Portal do cliente está na lista de ativos. Acione Arquivar para revisar a consequência antes de mudar o estado.",
+      "parts": [
+        {
+          "id": "page",
+          "name": "Lista de projetos"
+        },
+        {
+          "id": "trigger",
+          "name": "Ação Arquivar"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Arquivar Portal do cliente",
+          "to": "confirmacao"
+        }
+      ],
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "page": 207,
+          "focus": 30,
+          "scrim": 260,
+          "dialog": 159,
+          "trigger": 159,
+          "feedback": 159
+        },
+        "fills": [
+          "page",
+          "trigger"
+        ]
+      },
+      "flow": "Arquivar projeto",
+      "requirement": "Escolher o projeto que será arquivado e abrir a confirmação.",
+      "rules": [
+        {
+          "id": "ARQ-01",
+          "statement": "O projeto permanece ativo até a confirmação.",
+          "rationale": "A ação Arquivar fica na linha do projeto. A lista só muda depois da decisão.",
+          "parts": [
+            "page",
+            "trigger"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 2",
+            "Resumo da reunião · linha 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confirmacao",
+      "title": "Confirmar arquivamento",
+      "description": "A lista fica visível e inerte. A confirmação explica que o projeto pode ser restaurado. Na abertura o foco começa em Cancelar. O anel desenhado em Arquivar mostra a posição após Tab.",
+      "parts": [
+        {
+          "id": "page",
+          "name": "Lista de projetos"
+        },
+        {
+          "id": "scrim",
+          "name": "Scrim"
+        },
+        {
+          "id": "dialog",
+          "name": "Diálogo"
+        },
+        {
+          "id": "focus",
+          "name": "Anel de foco"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Cancelar",
+          "to": "cancelamento"
+        },
+        {
+          "label": "Confirmar arquivamento",
+          "to": "resultado"
+        }
+      ],
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "page": 207,
+          "focus": 30,
+          "scrim": 260,
+          "dialog": 159,
+          "trigger": 159,
+          "feedback": 159
+        },
+        "fills": [
+          "page",
+          "scrim",
+          "dialog",
+          "focus"
+        ]
+      },
+      "entry": true,
+      "flow": "Arquivar projeto",
+      "requirement": "Identificar o projeto e explicar a recuperação antes de confirmar o arquivamento.",
+      "rules": [
+        {
+          "id": "ARQ-02",
+          "statement": "A confirmação mantém a lista visível e impede ações no fundo.",
+          "rationale": "A camada entre o diálogo e a lista preserva o contexto e concentra a decisão no diálogo.",
+          "parts": [
+            "page",
+            "scrim",
+            "dialog"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 2"
+          ]
+        },
+        {
+          "id": "ARQ-03",
+          "statement": "A pessoa precisa saber o que arquiva e que poderá restaurá-lo.",
+          "rationale": "O nome Portal do cliente e a possibilidade de recuperação pertencem ao corpo do diálogo, antes dos botões.",
+          "parts": [
+            "dialog"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 3"
+          ]
+        },
+        {
+          "id": "ARQ-04",
+          "statement": "Ao abrir, a primeira ação em foco é Cancelar.",
+          "rationale": "O foco inicial permite sair com segurança. O anel da prancha mostra onde chega o foco após Tab.",
+          "parts": [
+            "dialog",
+            "focus"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancelamento",
+      "title": "Cancelamento",
+      "description": "O projeto continua na lista de ativos. Ao cancelar ou pressionar Esc no sistema, o foco volta ao botão Arquivar da mesma linha.",
+      "parts": [
+        {
+          "id": "page",
+          "name": "Lista de projetos"
+        },
+        {
+          "id": "trigger",
+          "name": "Ação Arquivar"
+        },
+        {
+          "id": "focus",
+          "name": "Foco no acionador"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Tentar novamente",
+          "to": "confirmacao"
+        },
+        {
+          "label": "Voltar à lista",
+          "to": "lista"
+        }
+      ],
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "page": 207,
+          "focus": 30,
+          "scrim": 260,
+          "dialog": 159,
+          "trigger": 159,
+          "feedback": 159
+        },
+        "fills": [
+          "page",
+          "trigger",
+          "focus"
+        ]
+      },
+      "flow": "Arquivar projeto",
+      "requirement": "Manter o projeto ativo e devolver o foco a Arquivar quando a pessoa cancelar.",
+      "rules": [
+        {
+          "id": "ARQ-05",
+          "statement": "Cancelar ou pressionar Esc fecha a confirmação.",
+          "rationale": "A lista conserva a linha original. O contorno de foco volta para Arquivar, onde a pessoa pode retomar a tarefa.",
+          "parts": [
+            "page",
+            "trigger",
+            "focus"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 4",
+            "Resumo da reunião · linha 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resultado",
+      "title": "Projeto arquivado",
+      "description": "O Portal do cliente sai da lista de ativos, o título recebe o foco e uma mensagem informa que a ação foi concluída. Neste teste, Restaurar repõe o projeto.",
+      "parts": [
+        {
+          "id": "page",
+          "name": "Lista de projetos"
+        },
+        {
+          "id": "feedback",
+          "name": "Mensagem de sucesso"
+        },
+        {
+          "id": "focus",
+          "name": "Foco no título"
+        }
+      ],
+      "actions": [
+        {
+          "label": "Restaurar projeto",
+          "to": "lista"
+        }
+      ],
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "page": 207,
+          "focus": 30,
+          "scrim": 260,
+          "dialog": 159,
+          "trigger": 159,
+          "feedback": 159
+        },
+        "fills": [
+          "page",
+          "feedback",
+          "focus"
+        ]
+      },
+      "flow": "Arquivar projeto",
+      "requirement": "Retirar o projeto dos ativos, anunciar o resultado e permitir a restauração.",
+      "rules": [
+        {
+          "id": "ARQ-06",
+          "statement": "Confirmar retira o projeto da lista e leva o foco ao título do resultado.",
+          "rationale": "A linha desaparece. A mensagem confirma a mudança e o contorno no título mostra onde a leitura recomeça.",
+          "parts": [
+            "page",
+            "feedback",
+            "focus"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 5"
+          ]
+        },
+        {
+          "id": "ARQ-07",
+          "statement": "Restaurar repõe o projeto e permite repetir a simulação.",
+          "rationale": "A escolha Restaurar no percurso leva à lista com o mesmo projeto disponível para arquivamento.",
+          "parts": [
+            "page",
+            "feedback"
+          ],
+          "sources": [
+            "Resumo da reunião · linha 6"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+A prancha original da technical-drawing deve continuar intacta.
+A lista mantém o contexto e fica inerte enquanto a confirmação está aberta.
+O diálogo identifica Portal do cliente e explica que o projeto pode ser restaurado.
+Ao abrir, o foco começa em Cancelar. Esc ou Cancelar fecha a confirmação e devolve o foco ao acionador.
+Ao confirmar, o projeto sai da lista ativa e o foco vai para o título do resultado.
+O teste usa dados fictícios. Restaurar projeto recoloca o item e libera uma nova tentativa.
+A primeira exibição apresenta a prancha e permite percorrer todas as telas pelo viewer.
+

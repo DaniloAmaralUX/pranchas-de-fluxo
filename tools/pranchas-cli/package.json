@@ -1,0 +1,12 @@
+{
+  "name": "pranchas-de-fluxo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wireframes técnicos navegáveis a partir de um briefing na IDE",
+  "bin": { "pranchas-de-fluxo": "install.mjs" },
+  "engines": { "node": ">=22.20.0" },
+  "scripts": { "bundle": "node pack.cjs", "verify": "node check.cjs" },
+  "files": ["install.mjs", "skills/**", "README.md", "LICENSE"],
+  "dependencies": { "skills": "1.9.0" },
+  "bundleDependencies": ["skills"]
+}

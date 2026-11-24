@@ -1,0 +1,7 @@
+interface:
+  display_name: "Pranchas de fluxo"
+  short_description: "Da reunião ao wireframe técnico navegável"
+  default_prompt: "Use $pranchas-de-fluxo para transformar este briefing em telas navegáveis e mostrar por que cada decisão foi tomada."
+
+policy:
+  allow_implicit_invocation: true

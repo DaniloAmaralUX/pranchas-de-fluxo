@@ -1,0 +1,1 @@
+A equipe de manutenção vê salas disponíveis. Uma reserva exige horário sem conflito. Se ocupado, escolhe outra sala. Após confirmar, a sala fica ocupada.

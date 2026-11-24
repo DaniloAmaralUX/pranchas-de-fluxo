@@ -1,0 +1,444 @@
+{
+  "title": "Reserva de salas da manutenção",
+  "summary": "A equipe consulta salas, verifica conflitos e acompanha a ocupação depois de confirmar a reserva. Ipê, Buriti e os horários são dados ilustrativos.",
+  "evidence": [
+    {
+      "id": "Ata · frase 1",
+      "file": "ata.txt",
+      "excerpt": "A equipe de manutenção vê salas disponíveis."
+    },
+    {
+      "id": "Ata · frase 2",
+      "file": "ata.txt",
+      "excerpt": "Uma reserva exige horário sem conflito."
+    },
+    {
+      "id": "Ata · frase 3",
+      "file": "ata.txt",
+      "excerpt": "Se ocupado, escolhe outra sala."
+    },
+    {
+      "id": "Ata · frase 4",
+      "file": "ata.txt",
+      "excerpt": "Após confirmar, a sala fica ocupada."
+    }
+  ],
+  "scopeNotes": [
+    {
+      "statement": "A simulação usa duas salas e horários fictícios para exercitar disponibilidade, conflito e ocupação.",
+      "sources": [
+        "Ata · frase 1",
+        "Ata · frase 2",
+        "Ata · frase 3",
+        "Ata · frase 4"
+      ]
+    }
+  ],
+  "questions": [
+    "Qual é a duração de uma reserva e como são definidas as sobreposições parciais?",
+    "Se mais de uma pessoa escolher o mesmo horário, em qual momento o sistema deve comunicar o conflito?"
+  ],
+  "dependencies": "node_modules",
+  "modelScripts": [
+    "model.js"
+  ],
+  "drawings": [
+    {
+      "id": "mapa",
+      "title": "Salas para manutenção",
+      "flow": "Consultar disponibilidade",
+      "requirement": "Localizar as salas disponíveis para a equipe de manutenção.",
+      "description": "As duas salas usadas no exemplo têm uma abertura na planta e uma entrada na lista. O horário será conferido na agenda da sala.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "planta",
+          "name": "Planta das salas"
+        },
+        {
+          "id": "salas",
+          "name": "Lista das salas"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-01",
+          "statement": "A equipe consulta as salas disponíveis.",
+          "rationale": "Planta e lista usam os mesmos nomes para a equipe relacionar cada sala à sua localização.",
+          "parts": [
+            "planta",
+            "salas"
+          ],
+          "sources": [
+            "Ata · frase 1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Consultar a Sala Ipê",
+          "to": "horarios"
+        },
+        {
+          "label": "Consultar Buriti às 15h",
+          "to": "revisar-buriti"
+        }
+      ],
+      "entry": true,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "planta": 184,
+          "salas": 155
+        },
+        "fills": [
+          "shell",
+          "planta",
+          "salas"
+        ]
+      }
+    },
+    {
+      "id": "horarios",
+      "title": "Agenda da Sala Ipê",
+      "flow": "Consultar disponibilidade",
+      "requirement": "Conferir se a Sala Ipê está disponível no horário desejado.",
+      "description": "Na simulação, Ipê está livre às 14h e ocupada às 15h. Escolha um horário para testar cada condição.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "agenda",
+          "name": "Grade de horários"
+        },
+        {
+          "id": "escolha",
+          "name": "Horário em consulta"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-02",
+          "statement": "Somente um horário sem conflito pode seguir para confirmação.",
+          "rationale": "A grade mantém hora e estado na mesma linha. A hachura distingue o período ocupado mesmo sem cor.",
+          "parts": [
+            "agenda",
+            "escolha"
+          ],
+          "sources": [
+            "Ata · frase 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Escolher 14h · livre",
+          "to": "revisar-ipe"
+        },
+        {
+          "label": "Testar 15h · ocupado",
+          "to": "conflito"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "agenda": 196,
+          "escolha": 155
+        },
+        "fills": [
+          "shell",
+          "agenda",
+          "escolha"
+        ]
+      }
+    },
+    {
+      "id": "conflito",
+      "title": "Ipê ocupada às 15h",
+      "flow": "Resolver conflito",
+      "requirement": "Escolher outra sala para as 15h quando a Sala Ipê estiver ocupada.",
+      "description": "O conflito está em Ipê às 15h. A prancha destaca a Sala Buriti na planta, como alternativa disponível no mesmo horário.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "planta",
+          "name": "Localização da Sala Buriti"
+        },
+        {
+          "id": "alerta",
+          "name": "Conflito e alternativa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-03",
+          "statement": "Quando o horário está ocupado, a equipe escolhe outra sala.",
+          "rationale": "O painel reúne a sala em conflito e o horário, e indica Buriti na planta para a equipe manter a hora desejada.",
+          "parts": [
+            "planta",
+            "alerta"
+          ],
+          "sources": [
+            "Ata · frase 2",
+            "Ata · frase 3"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Escolher Buriti às 15h",
+          "to": "revisar-buriti"
+        },
+        {
+          "label": "Voltar à agenda de Ipê",
+          "to": "horarios"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "planta": 184,
+          "alerta": 18
+        },
+        "fills": [
+          "shell",
+          "planta",
+          "alerta"
+        ]
+      }
+    },
+    {
+      "id": "revisar-ipe",
+      "title": "Revisar Ipê às 14h",
+      "flow": "Confirmar reserva",
+      "requirement": "Conferir Ipê às 14h antes de confirmar a reserva.",
+      "description": "A grade informa que o horário está livre. A ficha reúne sala, hora, estado e a ação Confirmar.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "agenda",
+          "name": "Grade de horários"
+        },
+        {
+          "id": "reserva",
+          "name": "Situação da reserva"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-04I",
+          "statement": "Confirmar exige que a sala e o horário estejam disponíveis.",
+          "rationale": "A ficha de confirmação repete sala e hora ao lado da grade. A linha fica livre até a confirmação.",
+          "parts": [
+            "agenda",
+            "reserva"
+          ],
+          "sources": [
+            "Ata · frase 2",
+            "Ata · frase 4"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Confirmar Ipê às 14h",
+          "to": "ocupada-ipe"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "agenda": 196,
+          "reserva": 151
+        },
+        "fills": [
+          "shell",
+          "agenda",
+          "reserva"
+        ]
+      }
+    },
+    {
+      "id": "ocupada-ipe",
+      "title": "Ipê ocupada às 14h",
+      "flow": "Conferir resultado",
+      "requirement": "Ver Ipê ocupada às 14h depois da confirmação.",
+      "description": "O horário escolhido está hachurado na grade. A ficha exibe o estado Ocupada e um sinal de confirmação.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "agenda",
+          "name": "Grade de horários"
+        },
+        {
+          "id": "reserva",
+          "name": "Situação da reserva"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-05I",
+          "statement": "Confirmar muda a situação do horário escolhido para ocupado.",
+          "rationale": "A hachura, o texto Ocupada e o sinal de confirmação ligam o resultado à mesma sala e hora da etapa anterior.",
+          "parts": [
+            "agenda",
+            "reserva"
+          ],
+          "sources": [
+            "Ata · frase 4"
+          ]
+        }
+      ],
+      "actions": [],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "agenda": 196,
+          "reserva": 34
+        },
+        "fills": [
+          "shell",
+          "agenda",
+          "reserva"
+        ]
+      }
+    },
+    {
+      "id": "revisar-buriti",
+      "title": "Revisar Buriti às 15h",
+      "flow": "Confirmar reserva",
+      "requirement": "Conferir Buriti às 15h antes de confirmar a reserva.",
+      "description": "A grade informa que o horário está livre. A ficha reúne sala, hora, estado e a ação Confirmar.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "agenda",
+          "name": "Grade de horários"
+        },
+        {
+          "id": "reserva",
+          "name": "Situação da reserva"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-04B",
+          "statement": "Confirmar exige que a sala e o horário estejam disponíveis.",
+          "rationale": "A ficha de confirmação repete sala e hora ao lado da grade. A linha fica livre até a confirmação.",
+          "parts": [
+            "agenda",
+            "reserva"
+          ],
+          "sources": [
+            "Ata · frase 2",
+            "Ata · frase 4"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Confirmar Buriti às 15h",
+          "to": "ocupada-buriti"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "agenda": 196,
+          "reserva": 151
+        },
+        "fills": [
+          "shell",
+          "agenda",
+          "reserva"
+        ]
+      }
+    },
+    {
+      "id": "ocupada-buriti",
+      "title": "Buriti ocupada às 15h",
+      "flow": "Conferir resultado",
+      "requirement": "Ver Buriti ocupada às 15h depois da confirmação.",
+      "description": "O horário escolhido está hachurado na grade. A ficha exibe o estado Ocupada e um sinal de confirmação.",
+      "parts": [
+        {
+          "id": "shell",
+          "name": "Estrutura da agenda"
+        },
+        {
+          "id": "agenda",
+          "name": "Grade de horários"
+        },
+        {
+          "id": "reserva",
+          "name": "Situação da reserva"
+        }
+      ],
+      "rules": [
+        {
+          "id": "SAL-05B",
+          "statement": "Confirmar muda a situação do horário escolhido para ocupado.",
+          "rationale": "A hachura, o texto Ocupada e o sinal de confirmação ligam o resultado à mesma sala e hora da etapa anterior.",
+          "parts": [
+            "agenda",
+            "reserva"
+          ],
+          "sources": [
+            "Ata · frase 4"
+          ]
+        }
+      ],
+      "actions": [],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "shell": 205,
+          "agenda": 196,
+          "reserva": 34
+        },
+        "fills": [
+          "shell",
+          "agenda",
+          "reserva"
+        ]
+      }
+    }
+  ]
+}
