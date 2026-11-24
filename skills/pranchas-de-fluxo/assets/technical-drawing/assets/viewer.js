@@ -163,6 +163,7 @@ function stripPreviewHooks(node) {
 
 function setDrawingStatus(status) {
   drawingStatus = status;
+  document.dispatchEvent(new Event('flow-render-state'));
   viewport.setAttribute('aria-busy', String(status === 'rendering'));
   $('render-status').textContent = status === 'rendering' ? 'Updating drawing' : status === 'ready' ? 'Drawing updated' : '';
   updateAvailability();
@@ -225,11 +226,8 @@ function syncControls() {
   $('annotate').checked = s.annotate;
   $('explosion').value = s.explosion * 100;
   $('explosion-value').value = Math.round(s.explosion * 100) + '%';
-  for (const option of $('view').children) {
-    const checked = option.dataset.view === (s.explosion === 0 ? 'assembled' : 'exploded');
-    option.setAttribute('aria-checked', String(checked));
-    option.tabIndex = checked ? 0 : -1;
-  }
+  const mode = s.explosion === 0 ? 'assembled' : 'exploded';
+  if ($('view').value !== mode) $('view').value = mode;
   $('part-target').value = s.selectedPart;
   $('isolate-part').setAttribute('aria-pressed', String(isolated));
   $('isolate-part').textContent = isolated ? 'Isolated' : 'Isolate';
@@ -309,11 +307,20 @@ function buildParameterControls() {
   }
 }
 
-function ruleItem(rule) {
-  const item = document.createElement('li');
-  const details = document.createElement('details');
-  const summary = document.createElement('summary');
-  summary.textContent = rule.statement;
+function ruleItem(rule, index) {
+  const item = document.createElement('ui-accordion-item');
+  item.setAttribute('value', String(index));
+  const header = document.createElement('ui-accordion-header');
+  const heading = document.createElement('h3');
+  const trigger = document.createElement('ui-accordion-trigger');
+  const control = document.createElement('button');
+  control.type = 'button';
+  control.textContent = rule.statement;
+  trigger.append(control);
+  heading.append(trigger);
+  header.append(heading);
+  const panel = document.createElement('ui-accordion-panel');
+  panel.hidden = true;
   const reason = document.createElement('p');
   reason.textContent = rule.rationale;
   const parts = document.createElement('div');
@@ -332,8 +339,8 @@ function ruleItem(rule) {
   const source = document.createElement('p');
   source.className = 'rule-sources';
   source.textContent = 'Fonte: ' + rule.sources.join(' · ');
-  details.append(summary, reason, parts, source);
-  item.append(details);
+  panel.append(reason, parts, source);
+  item.append(header, panel);
   return item;
 }
 
@@ -359,10 +366,16 @@ function refreshJourney() {
     button.dataset.destination = action.to;
     return button;
   }));
-  const rules = (selected.rules ?? []).map(ruleItem);
+  const rules = selected.rules ?? [];
   $('rules-heading').hidden = !rules.length;
-  $('journey-rules').replaceChildren(...rules);
-  if (rules.length) rules[0].firstElementChild.open = true;
+  $('journey-rules').replaceChildren();
+  if (rules.length) {
+    const accordion = document.createElement('ui-accordion');
+    accordion.setAttribute('multiple', '');
+    accordion.setAttribute('default-value', '0');
+    accordion.append(...rules.map(ruleItem));
+    $('journey-rules').append(accordion);
+  }
 }
 
 function namedOption(name, id) {
@@ -385,6 +398,7 @@ function selectDrawing(id, historyMode = 'replaceState') {
   refreshJourney();
   refresh();
   history[historyMode](null, '', '#' + selected.id);
+  document.dispatchEvent(new Event('flow-selection'));
 }
 
 function renderZoom(reset = false) {
@@ -487,7 +501,7 @@ document.addEventListener('keydown', event => {
   if (!hasScreenNav || event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
   if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
   if (document.querySelector(':popover-open, dialog[open], [aria-modal="true"]:not([hidden])')) return;
-  if (event.target.isContentEditable || event.target.closest('input, select, textarea, [role="radiogroup"], [role="slider"], [role="textbox"]')) return;
+  if (event.target.isContentEditable || event.target.closest('input, select, textarea, ui-segmented-control, [role="radiogroup"], [role="slider"], [role="textbox"]')) return;
   if (zoom > 1 && viewport.contains(event.target)) return;
   event.preventDefault();
   stepScreen(event.key === 'ArrowLeft' ? -1 : 1);
@@ -513,17 +527,9 @@ window.addEventListener('popstate', () => {
   const id = location.hash.slice(1);
   if (id !== selected.id) selectDrawing(id);
 });
-const setView = option => update({explosion: option.dataset.view === 'assembled' ? 0 : 1});
-$('view').addEventListener('click', event => {
-  const option = event.target.closest('[role=radio]');
-  if (option) setView(option);
-});
-$('view').addEventListener('keydown', event => {
-  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
-  event.preventDefault();
-  const other = [...$('view').children].find(option => option.getAttribute('aria-checked') !== 'true');
-  setView(other);
-  other.focus();
+$('view').addEventListener('valuechange', event => {
+  const assembled = event.detail.value === 'assembled';
+  if (assembled !== (state().explosion === 0)) update({explosion: assembled ? 0 : 1});
 });
 $('linework').addEventListener('change', event => update({preset: event.target.value}));
 $('annotate').addEventListener('change', event => update({annotate: event.target.checked}));

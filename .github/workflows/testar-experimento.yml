@@ -1,0 +1,38 @@
+name: Validar Intent e UI SDK
+on:
+  workflow_dispatch:
+  push:
+    branches: [experimental/intent-ui-sdk]
+permissions:
+  contents: read
+jobs:
+  pacote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.20.0
+      - name: Reconstruir os componentes incorporados
+        run: |
+          npm ci --prefix integrations/ui-sdk
+          npm run build --prefix integrations/ui-sdk
+          git diff --exit-code -- skills/pranchas-de-fluxo/assets/technical-drawing/assets
+      - name: Gerar o instalador experimental
+        run: |
+          npm ci --prefix tools/pranchas-cli
+          npm run bundle --prefix tools/pranchas-cli
+      - name: Testar a instalação e o fluxo de geração
+        run: npm run verify --prefix tools/pranchas-cli
+      - name: Testar regras, vistas e exportação no navegador
+        run: |
+          npm ci --prefix skills/pranchas-de-fluxo/assets
+          npm test --prefix integrations/ui-sdk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pranchas-de-fluxo-experimental
+          path: tools/pranchas-cli/dist/*.tgz
+          if-no-files-found: error

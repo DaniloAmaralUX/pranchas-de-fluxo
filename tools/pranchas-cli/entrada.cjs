@@ -1,5 +1,5 @@
 const fs = require('node:fs/promises');
-const { constants } = require('node:fs');
+const {constants} = require('node:fs');
 const path = require('node:path');
 const { randomUUID } = require('node:crypto');
 const { spawnSync } = require('node:child_process');
@@ -9,10 +9,12 @@ const demo = path.resolve(__dirname, '../exemplo');
 
 function help() {
   print('Pranchas de fluxo');
-  print('  npx --yes ./pranchas-de-fluxo-1.0.0.tgz [arquivo ...]');
-  print('  node .pranchas/cli.cjs [arquivo ...] [--stdin] [--ideia "texto"] [--offline] [--gerar] [--sem-abrir]');
+  print('  npx --yes ./pranchas-de-fluxo-' + require('../package-version.json').version + '.tgz [arquivo ...]');
+  print('  node .pranchas-beta/cli.cjs [arquivo ...] [--stdin] [--ideia "texto"] [--offline] [--gerar] [--sem-abrir]');
   print('  --gerar entrega as fontes ao Codex CLI e ao provedor de IA configurado neste perfil.');
-  print('  node .pranchas/cli.cjs exemplo <pasta-nova>');
+  print('  node .pranchas-beta/cli.cjs exemplo <pasta-nova>');
+  print('  node .pranchas-beta/cli.cjs --reproduzir <pasta-do-prototipo>');
+  print('  node .pranchas-beta/cli.cjs orientacao');
   print('No chat do agente, anexe seu material ou abra o HANDOFF.md indicado no terminal.');
 }
 
@@ -23,6 +25,7 @@ function parse(args) {
   let offline = false;
   let generate = false;
   let open = true;
+  let session;
   let literal = false;
   for (let index = 0; index < args.length; index++) {
     const value = args[index];
@@ -32,6 +35,11 @@ function parse(args) {
     else if (value === '--offline') offline = true;
     else if (value === '--gerar') generate = true;
     else if (value === '--sem-abrir') open = false;
+    else if (value === '--sessao') {
+      const directory = args[++index];
+      if (!directory || directory.startsWith('--')) throw Error('Informe a pasta de sessão do visor.');
+      session = path.resolve(directory);
+    }
     else if (value === '--ideia') {
       idea = args[++index];
       if (!idea?.trim()) throw Error('Escreva o texto depois de --ideia.');
@@ -40,7 +48,8 @@ function parse(args) {
   }
   if (generate && offline) throw Error('Para exigir execução offline, prepare o pedido com --offline. --gerar usa o provedor do Codex.');
   if (generate && !(files.length || stdin || idea)) throw Error('Passe um arquivo, --stdin ou --ideia com --gerar.');
-  return { files, idea, stdin, offline, generate, open };
+  if (session && !generate) throw Error('--sessao requer um pedido com --gerar.');
+  return { files, idea, stdin, offline, generate, open, session };
 }
 
 async function readStdin() {
@@ -55,14 +64,16 @@ async function readStdin() {
 async function projectLauncher(project) {
   const source = path.join(__dirname, 'project.cjs');
   const destination = path.join(project, 'cli.cjs');
-  await fs.mkdir(project, { recursive: true, mode: 0o700 });
+  const stage = await fs.mkdtemp(path.join(path.dirname(project), '.instalando-pranchas-beta-'));
   try {
-    await fs.copyFile(source, destination, constants.COPYFILE_EXCL);
-  } catch (error) {
-    if (error.code !== 'EEXIST') throw error;
-    if (!(await fs.readFile(source)).equals(await fs.readFile(destination))) {
-      throw Error('Já existe outro arquivo em ' + destination + '. Escolha uma pasta de trabalho diferente.');
-    }
+    await fs.copyFile(source, path.join(stage, 'cli.cjs'));
+    try { await fs.rename(stage, project); }
+    catch (error) { if (!['EEXIST', 'ENOTEMPTY', 'EPERM'].includes(error.code)) throw error; }
+  } finally {
+    await fs.rm(stage, {force: true, recursive: true});
+  }
+  if (!(await fs.readFile(source)).equals(await fs.readFile(destination))) {
+    throw Error('Já existe outro arquivo em ' + destination + '. Escolha uma pasta de trabalho diferente.');
   }
 }
 
@@ -94,7 +105,7 @@ async function handoff(project, { files, idea, stdin, offline }) {
     if (result.status !== 0) throw Error('A leitura dos insumos falhou. Consulte a mensagem acima e repita o comando.');
     const brief = [
       '# Pedido de pranchas de fluxo', '',
-      'Use a skill pranchas-de-fluxo. Leia [as fontes extraídas](briefing.md) e os arquivos ao lado deste pedido como material da reunião.',
+      'Use a skill do projeto pranchas-de-fluxo-beta. Leia [as fontes extraídas](briefing.md) e os arquivos ao lado deste pedido como material da reunião.',
       'Gere o briefing, a especificação e o visor navegável no projeto. Vincule cada requisito à fonte e marque hipóteses para revisão.',
       'Teste as transições e as setas do teclado e abra o HTML no navegador integrado da IDE quando disponível.',
       '', '## Arquivos de entrada', '', ...inputs.map(name => '- ' + JSON.stringify(name)), ''
@@ -109,8 +120,28 @@ async function handoff(project, { files, idea, stdin, offline }) {
   }
 }
 
+async function openSession(project, entrada) {
+  const parent = path.join(project, 'sessoes');
+  await fs.mkdir(parent, {recursive:true,mode:0o700});
+  const pasta = await fs.mkdtemp(path.join(parent, 'sessao-'));
+  const viewer = await require('./visor.cjs').iniciar({pasta, abrir:true, entrada});
+  print('Visor local: ' + viewer.url);
+  return viewer;
+}
+
 async function run(args) {
   if (['-h', '--help'].includes(args[0])) return help();
+  if (args[0] === '--reproduzir') {
+    if (args.length !== 2) throw Error('Uso: --reproduzir <pasta-do-prototipo>');
+    const html = await require('./contrato.cjs').reproduzir(path.resolve(args[1]));
+    print('Visor reproduzido: ' + html);
+    return;
+  }
+  if (args[0] === 'orientacao') {
+    const guide = await require('./gerar.cjs').guidanceForRun();
+    print(guide.id + '@' + guide.version + '\nDiretório de apoio: ' + guide.directory + '\nBase dos links node_modules/: ' + guide.consumer + '\n\n' + guide.content);
+    return;
+  }
   if (args[0] === 'exemplo') {
     if (args.length !== 2) throw Error('Uso: exemplo <pasta-nova>');
     const destination = path.resolve(args[1]);
@@ -120,23 +151,34 @@ async function run(args) {
     return;
   }
   const options = parse(args);
-  const project = path.resolve('.pranchas');
+  const project = path.resolve('.pranchas-beta');
   await projectLauncher(project);
-  if (options.files.length || options.idea || options.stdin) {
+  const hasInput = options.files.length > 0 || options.idea || options.stdin;
+  const show = options.open && !process.env.CI;
+  let viewer;
+  if (options.session) viewer = await require('./visor.cjs').conectar(options.session);
+  else if (show && (options.generate || !hasInput)) viewer = await openSession(project, !hasInput);
+  if (!hasInput) {
+    if (!viewer) print('Anexe o briefing no chat do agente ou use --gerar com os arquivos.');
+    print('Exemplo pronto para abrir: ' + path.join(demo, 'index.html'));
+    return;
+  }
+  try {
+    await viewer?.atualizar('descobrir');
     const request = await handoff(project, options);
     const relative = path.relative(process.cwd(), request).split(path.sep).join('/');
     if (options.generate) {
       print('Pedido local: ' + relative);
-      require('./gerar.cjs').generate(request, options.open);
+      const html = await require('./gerar.cjs').generate(request, viewer);
+      await viewer?.concluir(html);
     } else {
       print('Pedido local pronto. No chat do agente da IDE, diga:');
       print('Gere as pranchas deste pedido: ' + relative);
     }
-  } else {
-    print('No chat do agente da IDE, anexe o briefing e peça as pranchas do fluxo.');
-    print('Exemplo pronto para abrir: ' + path.join(demo, 'index.html'));
-    print('Para usar o terminal novamente: node .pranchas/cli.cjs --help');
+  } catch(error) {
+    await viewer?.falhar(error.message);
+    throw error;
   }
 }
 
-module.exports = { run, help };
+module.exports = { run, help, projectLauncher };

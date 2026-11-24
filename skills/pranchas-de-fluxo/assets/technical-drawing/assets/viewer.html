@@ -40,7 +40,7 @@ button, input, select { font: inherit; color: inherit; }
 button, select { cursor: pointer; }
 button { border: 0; background: none; }
 button:disabled { opacity: .3; cursor: default; }
-button svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+:is(button, [data-view]) svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none; }
 button:focus-visible, input:focus-visible, select:focus-visible, #viewport:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 
@@ -138,7 +138,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, #viewport:focus
   color: rgb(255 255 255 / .85);
 }
 .controls select option { background: #292929; color: white; }
-.controls button {
+.controls :is(button, [data-view]) {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -150,15 +150,15 @@ button:focus-visible, input:focus-visible, select:focus-visible, #viewport:focus
 }
 .controls .zoom-button { font-size: 20px; font-weight: 300; padding: 0 7px; }
 .controls output { font-size: 11px; font-variant-numeric: tabular-nums; color: rgb(255 255 255 / .6); min-width: 39px; text-align: center; }
-.controls :is(button, select):focus-visible { outline: 2px solid rgb(255 255 255 / .7); outline-offset: -2px; }
+.controls :is(button, [data-view], select):focus-visible { outline: 2px solid rgb(255 255 255 / .7); outline-offset: -2px; }
 .controls #color-toggle { gap: 8px; }
 .controls #download-toggle { width: 38px; padding: 0; margin-right: 1px; }
 .controls .selectors { flex-shrink: 1; min-width: 0; max-width: 100%; }
 .controls #subject { flex: 0 1 auto; min-width: 0; text-overflow: ellipsis; }
 .controls #view { flex: none; display: flex; gap: 2px; }
-.controls #view button { gap: 6px; }
+.controls #view [data-view] { gap: 6px; cursor: pointer; }
 .controls #view svg { display: none; }
-.controls #view [aria-checked=true],
+.controls #view [data-checked],
 .controls button[aria-pressed=true],
 body:has(#color-panel:popover-open) #color-toggle,
 body:has(#settings-panel:popover-open) #settings-toggle,
@@ -196,10 +196,13 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
   transform: translateX(-50%);
   max-height: calc(100dvh - var(--caption-bottom) - 12px);
 }
-#journey-rules { padding: 0; list-style: none; margin: 0; }
-#journey-rules li { border-top: 1px solid var(--border); padding-block: 9px; }
-#journey-rules summary { cursor: pointer; padding-block: 5px; line-height: 1.45; font-weight: 500; }
-#journey-rules summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+#journey-rules ui-accordion { display: block; }
+#journey-rules ui-accordion-item { display: block; border-top: 1px solid var(--border); padding-block: 9px; }
+#journey-rules h3 { margin: 0; font: inherit; }
+#journey-rules ui-accordion-trigger button { display: flex; gap: 6px; align-items: baseline; width: 100%; padding: 5px 0; text-align: start; line-height: 1.45; font-weight: 500; }
+#journey-rules ui-accordion-trigger button::before { content: ""; border-block: 4px solid transparent; border-left: 6px solid currentColor; }
+#journey-rules ui-accordion-trigger button[aria-expanded=true]::before { transform: rotate(90deg); }
+#journey-rules button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 #journey-rules p { margin: 4px 0 8px; line-height: 1.55; }
 .rule-heading { margin: 18px 0 8px; font-size: 12px; font-weight: 600; }
 .rule-parts { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -257,7 +260,7 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
 
 @media (hover: hover) {
   button:not(:disabled):hover { background-color: var(--hover); }
-  .controls button:not(:disabled):hover, .controls select:hover { background-color: rgb(255 255 255 / .08); color: rgb(255 255 255 / .85); }
+  .controls :is(button:not(:disabled), [data-view], select):hover { background-color: rgb(255 255 255 / .08); color: rgb(255 255 255 / .85); }
 }
 
 @media (max-width: 740px) {
@@ -265,7 +268,7 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
   [popover] { padding: 16px; }
   .controls { bottom: max(16px, env(safe-area-inset-bottom)); flex-wrap: wrap; justify-content: center; padding: 6px; }
   .controls select { font-size: 12px; padding-left: 12px; padding-right: 27px; height: 34px; }
-  .controls button { min-width: 32px; padding: 0 9px; height: 34px; font-size: 12px; }
+  .controls :is(button, [data-view]) { min-width: 32px; padding: 0 9px; height: 34px; font-size: 12px; }
   .controls output { min-width: 38px; }
   .controls #color-toggle .color-label { display: none; }
   .controls #download-toggle { width: 34px; }
@@ -275,7 +278,7 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
 @media (max-width: 640px) {
   #screen-nav { width: calc(100% - 16px); gap: 0; margin-top: max(4px, env(safe-area-inset-top)); }
   .controls { width: 300px; max-width: calc(100vw - 16px); padding: 8px; row-gap: 3px; }
-  .controls button { min-width: 30px; padding: 0 6px; }
+  .controls :is(button, [data-view]) { min-width: 30px; padding: 0 6px; }
   .controls .selectors { flex-basis: 100%; justify-content: center; margin-bottom: 2px; }
   .controls .select-divider, .controls #color-toggle { display: none; }
   .controls #view svg { display: block; }
@@ -283,8 +286,10 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
   .divider { margin: 0 2px; }
 }
 </style>
+<style>__FLOW_ATLAS_CSS__</style>
 </head>
 <body>
+<div id="flow-tools" lang="pt-BR"></div>
 <nav id="screen-nav" lang="pt-BR" aria-label="Navegação entre telas" hidden>
   <button type="button" class="step" id="screen-prev" aria-label="Tela anterior" aria-keyshortcuts="ArrowLeft" title="Tela anterior (←)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4.5-5.5 5.5 5.5 5.5"/></svg></button>
   <button type="button" id="screen-caption" popovertarget="journey-panel" title="Ver percurso e justificativas">
@@ -296,7 +301,7 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
 <p id="screen-status" class="sr-only" role="status" aria-atomic="true" lang="pt-BR"></p>
 <main id="viewport" aria-label="Drawing. Use arrow keys to scroll, plus or minus to zoom, and zero to fit." tabindex="0"><div id="stage"><div id="drawing"><svg id="selection" aria-hidden="true" hidden><rect id="selection-box" rx="1" fill="none" stroke-width=".2" stroke-dasharray="1 1"/></svg></div></div></main>
 <div class="controls" id="controls" aria-label="Drawing controls">
-<div class="group selectors"><label class="sr-only" for="subject">Drawing</label><select id="subject"></select><div id="view" class="segmented" role="radiogroup" aria-label="View"><button role="radio" data-view="exploded" aria-checked="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4m6 0h4v4m0 6v4h-4m-6 0H3v-4"/></svg><span class="view-label">Exploded</span></button><button role="radio" data-view="assembled" aria-checked="false" tabindex="-1"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 3v4H3m14 0h-4V3m0 14v-4h4M3 13h4v4"/></svg><span class="view-label">Assembled</span></button></div><button id="theme-toggle" aria-label="Dark mode" aria-pressed="false" title="Switch to dark mode"><svg class="moon-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.7 12.6A7.2 7.2 0 0 1 7.4 3.3a7.2 7.2 0 1 0 9.3 9.3Z"/></svg><svg class="sun-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.2"/><path d="M10 1.5v1.7m0 13.6v1.7M1.5 10h1.7m13.6 0h1.7M4 4l1.2 1.2m9.6 9.6L16 16M4 16l1.2-1.2m9.6-9.6L16 4"/></svg></button></div>
+<div class="group selectors"><label class="sr-only" for="subject">Drawing</label><select id="subject"></select><ui-segmented-control id="view" class="segmented" aria-label="View" default-value="exploded"><ui-segmented-control-item value="exploded" data-view="exploded"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7V3h4m6 0h4v4m0 6v4h-4m-6 0H3v-4"/></svg><span class="view-label">Exploded</span></ui-segmented-control-item><ui-segmented-control-item value="assembled" data-view="assembled"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 3v4H3m14 0h-4V3m0 14v-4h4M3 13h4v4"/></svg><span class="view-label">Assembled</span></ui-segmented-control-item></ui-segmented-control><button id="theme-toggle" aria-label="Dark mode" aria-pressed="false" title="Switch to dark mode"><svg class="moon-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.7 12.6A7.2 7.2 0 0 1 7.4 3.3a7.2 7.2 0 1 0 9.3 9.3Z"/></svg><svg class="sun-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.2"/><path d="M10 1.5v1.7m0 13.6v1.7M1.5 10h1.7m13.6 0h1.7M4 4l1.2 1.2m9.6 9.6L16 16M4 16l1.2-1.2m9.6-9.6L16 4"/></svg></button></div>
 <div class="divider select-divider" aria-hidden="true"></div>
 <div class="group zoom"><button class="zoom-button" id="zoom-out" aria-label="Zoom out">−</button><output id="zoom-level" aria-live="polite" aria-label="Zoom relative to fit">100%</output><button class="zoom-button" id="zoom-in" aria-label="Zoom in">+</button></div>
 <div class="divider" aria-hidden="true"></div>
@@ -335,18 +340,23 @@ body:has(#download-panel:popover-open) #download-toggle { background: rgb(255 25
   <p id="journey-description"></p>
   <div class="action-row" id="journey-actions"></div>
   <h2 class="rule-heading" id="rules-heading" hidden>Regras e justificativas</h2>
-  <ul id="journey-rules" aria-labelledby="rules-heading"></ul>
+  <div id="journey-rules"></div>
 </div>
 <div id="download-panel" popover="auto" aria-label="Download formats"><div class="panel-heading">Download<button class="close" popovertarget="download-panel" popovertargetaction="hide" aria-label="Close download controls">×</button></div><label class="check-field"><input id="tight-crop" type="checkbox">Crop to drawing</label><label class="check-field"><input id="transparent" type="checkbox">Transparent background</label><hr class="panel-divider"><button class="export-choice" data-format="svg" aria-label="Download SVG"><strong>SVG</strong><span>Editable vector</span></button><button class="export-choice" data-format="png" aria-label="Download PNG"><strong>PNG</strong><span>300 dpi</span></button><button class="export-choice" data-format="pdf" aria-label="Download PDF"><strong>PDF</strong><span id="pdf-size">A3 vector</span></button></div>
 <p id="message" role="status"></p><p id="render-status" class="sr-only" role="status"></p>
 <noscript>JavaScript is needed for this drawing viewer.</noscript>
 <script type="text/plain" id="inter-license">__INTER_LICENSE__</script>
 <script id="drawing-data" type="application/json">__DRAWING_DATA__</script>
+<script id="flow-evidence" type="application/json">__EVIDENCE_DATA__</script>
 <script>__JSPDF__</script>
 <script>__SVG2PDF__</script>
 <script>__SHEET_SCRIPT__</script>
 <script id="drawing-worker" type="application/json">__WORKER_SOURCE__</script>
 <script>__EXPORT_SCRIPT__</script>
 <script>__RENDER_QUEUE_SCRIPT__</script>
+<script type="text/plain" id="ui-sdk-license">__UI_SDK_LICENSE__</script>
+<script type="text/plain" id="atlas-licenses">__FLOW_ATLAS_LICENSES__</script>
+<script>__UI_SDK_SCRIPT__</script>
 <script>__VIEWER_SCRIPT__</script>
+<script>__FLOW_ATLAS_SCRIPT__</script>
 </body></html>

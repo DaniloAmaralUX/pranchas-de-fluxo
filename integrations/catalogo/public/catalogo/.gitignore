@@ -1,0 +1,3 @@
+# Catalog material is local to its owner. Recreate it using the importer.
+*
+!.gitignore

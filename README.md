@@ -1,5 +1,9 @@
 # Pranchas de fluxo
 
+Esta é a branch experimental que integra TanStack Intent e UI SDK. O comando de primeira instalação abaixo continua apontando para a [release estável 1.0.0](https://github.com/DaniloAmaralUX/pranchas-de-fluxo/releases/tag/v1.0.0).
+
+A home local exibe as telas do Supernova em um carrossel Skiper 49. **Explorar** abre o catálogo completo. [Importar e iniciar o catálogo](integrations/catalogo/README.md)
+
 Transforme uma reunião em telas navegáveis com um requisito por tela. Use as setas para percorrer o desenho e abra **Ver regras** para encontrar a justificativa, a peça da interface e a fonte.
 
 ## Primeira reunião

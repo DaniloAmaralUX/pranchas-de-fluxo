@@ -1,5 +1,8 @@
 ---
 name: pranchas-de-fluxo
+metadata:
+  library: pranchas-de-fluxo
+  library_version: "1.1.0-beta.1"
 description: Transforma uma ideia, ata, transcrição, áudio, vídeo ou documento de requisitos em telas, wireframes, fluxos navegáveis e briefing para a equipe. Use quando alguém anexar uma conversa com cliente e quiser ver o sistema, entender requisitos ou testar o fluxo. Atenda pedidos em linguagem natural como “saí da reunião, desenhe as telas” ou “mostre este briefing”. Abre o visor de desenho técnico com setas e regras justificadas.
 ---
 

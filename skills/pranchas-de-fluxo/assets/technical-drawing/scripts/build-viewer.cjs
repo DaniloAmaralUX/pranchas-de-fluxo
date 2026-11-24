@@ -17,6 +17,7 @@ function build(configPath, outputPath) {
     __INTER_LICENSE__: script(read(dependency('@fontsource-variable/inter/LICENSE'))),
     __INTER_FONT__: fs.readFileSync(dependency('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2')).toString('base64'),
     __DRAWING_DATA__: json(config.drawings),
+    __EVIDENCE_DATA__: json((config.evidence || []).map(({id, excerpt}) => ({id, excerpt}))),
     __JSPDF__: script(read(dependency('jspdf/dist/jspdf.umd.min.js'))),
     __SVG2PDF__: script(read(dependency('svg2pdf.js/dist/svg2pdf.umd.min.js'))),
     __WORKER_SOURCE__: json(worker),
@@ -24,6 +25,11 @@ function build(configPath, outputPath) {
     __SHEET_SCRIPT__: script(asset('sheet.js')),
     __EXPORT_SCRIPT__: script(asset('export.js')),
     __RENDER_QUEUE_SCRIPT__: script(asset('render-queue.js')),
+    __UI_SDK_SCRIPT__: script(asset('ui-sdk.js')),
+    __UI_SDK_LICENSE__: script(asset('UI-SDK-LICENSE.txt')),
+    __FLOW_ATLAS_CSS__: asset('flow-atlas.css'),
+    __FLOW_ATLAS_SCRIPT__: script(asset('gallery.js')),
+    __FLOW_ATLAS_LICENSES__: script(asset('FLOW-ATLAS-LICENSES.txt')),
     __VIEWER_SCRIPT__: script(asset('viewer.js'))
   };
   const html = asset('viewer.html').replace(/__[A-Z0-9_]+__/g, key => {
