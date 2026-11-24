@@ -3,15 +3,20 @@ import {createReadStream, readFileSync, statSync} from "node:fs";
 import {createServer} from "node:http";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
+import {presentation} from "./apresentacao.mjs";
+import {technicalPreview} from "../ui-sdk/live-preview.mjs";
 
 const folder = fileURLToPath(new URL(".", import.meta.url));
-const files = path.join(folder, "public/catalogo");
+const files = path.resolve(process.env.PRANCHAS_CATALOGO_DIR || path.join(folder, "public/catalogo"));
 const snapshot = path.join(files, "supernova");
 const typeface = path.resolve(folder, "../../skills/pranchas-de-fluxo/assets/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2");
-const port = Number(process.argv[2] || 57128);
+let port = Number(process.argv[2] || 57128);
+const workspace = path.resolve(folder, "../..");
+const create = presentation(workspace);
+const viewer = await technicalPreview(path.join(folder,"demo/drawing.json"));
 const watcher = new Set();
-const sources = ["index.html","design.css","catalogo.js","public/catalogo/manifest.json"];
-const paths = sources.map(file => path.join(folder,file));
+const paths = ["index.html","design.css","catalogo.js"].map(file => path.join(folder,file));
+paths.push(path.join(files,"manifest.json"));
 const types = {".avif":"image/avif",".png":"image/png",".jpg":"image/jpeg",".webp":"image/webp",".svg":"image/svg+xml",
   ".css":"text/css; charset=utf-8",".js":"text/javascript; charset=utf-8",".woff2":"font/woff2",
   ".html":"text/html; charset=utf-8",".json":"application/json; charset=utf-8",".txt":"text/plain; charset=utf-8",".ico":"image/x-icon"};
@@ -80,8 +85,13 @@ const server = createServer((request,response) => {
     // The imported Next.js demos request an RSC payload when they return to the index.
     // An HTML response triggers a full navigation to this project's home.
     response.writeHead(200,{"Content-Type":types[".html"],"Cache-Control":"no-store"}).end(head ? undefined : home());
-  } else if (url === "/visor/" || url === "/visor") {
-    response.writeHead(302,{Location:process.env.PRANCHAS_TECHNICAL_PREVIEW || "http://127.0.0.1:57126/"}).end();
+  } else if (url === "/visor") {
+    response.writeHead(302,{Location:"/visor/"}).end();
+  } else if (url.startsWith("/visor/")) {
+    viewer(url.slice("/visor".length),response,head);
+  } else if (url === "/criar/" || url === "/criar") {
+    if (head) response.writeHead(200).end();
+    else void create(response);
   } else if (url === "/catalogo/alteracoes" && !head) {
     response.writeHead(200,{"Content-Type":"text/event-stream","Cache-Control":"no-store","X-Accel-Buffering":"no"});
     response.write("retry: 1000\n");
@@ -100,7 +110,10 @@ const server = createServer((request,response) => {
     return;
   } else response.writeHead(404).end("Arquivo não encontrado.");
 });
-server.listen(port,"127.0.0.1",() => process.stdout.write("Catálogo aberto em http://127.0.0.1:" + port + "/\n"));
+server.listen(port,"127.0.0.1",() => {
+  port = server.address().port;
+  process.stdout.write("Catálogo aberto em http://127.0.0.1:" + port + "/\n");
+});
 setInterval(rebuild,600).unref();
 setInterval(() => {
   for (const stream of watcher) if (!stream.write(": ligado\n\n")) stream.end();

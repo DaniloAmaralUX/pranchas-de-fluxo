@@ -40,6 +40,7 @@ h1,h2,p{margin:0}
 .site-header nav{display:flex;align-items:center;gap:clamp(15px,3vw,32px);font-size:14px;color:var(--muted);font-weight:525}
 .site-header nav a{display:flex;align-items:center;gap:6px;min-height:44px;padding-inline:2px}
 .site-header nav a[aria-current],.site-header nav a:hover{color:var(--ink)}
+.site-header nav .create-link{border:1px solid var(--line);border-radius:8px;padding-inline:12px;color:var(--ink);white-space:nowrap}
 .home{min-height:calc(100svh - var(--header));display:flex;flex-direction:column;align-items:center;overflow:hidden;isolation:isolate}
 .intro{padding:clamp(25px,4.25vh,58px) var(--gutter) 0;text-align:center;z-index:1}
 .intro h1{font-size:clamp(36px,6vw,78px);line-height:.99;letter-spacing:-.075em;font-weight:630;text-wrap:balance}
@@ -142,5 +143,12 @@ body:has(dialog[open]){overflow:hidden}
   #prev{justify-self:start}
   #next{justify-self:end}
   .site-header nav{font-size:13px}
+  .site-header nav .create-link{padding-inline:8px;min-height:36px}
+  .site-header nav .create-link span{display:none}
   .wordmark{font-size:20px}
+}
+@media(max-width:360px) {
+  .site-header{gap:10px}
+  .site-header nav{gap:8px}
+  .wordmark{font-size:18px;gap:7px}
 }

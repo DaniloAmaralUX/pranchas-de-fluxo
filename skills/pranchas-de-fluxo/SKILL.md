@@ -8,7 +8,13 @@ description: Transforma uma ideia, ata, transcrição, áudio, vídeo ou documen
 
 # Pranchas de fluxo
 
-Quando receber um pedido de visualização, leve-o até o HTML testado. A primeira exibição é o desenho da etapa inicial no visor técnico escuro. Uma ideia curta já permite começar. Se faltarem condições indispensáveis, peça apenas a decisão que muda o caminho principal.
+Quando receber um pedido de visualização, leve-o até o HTML testado. Uma ideia curta já permite começar. No navegador a sessão acompanha as etapas da geração. Quando o contrato é validado, o visor técnico abre na prancha inicial.
+
+## Abrir a sessão antes de gerar
+
+Para uma ideia ou arquivos novos no chat da IDE, abra a sessão com `node "<skill>/scripts/visor.cjs" --aguardar "<nova-pasta-de-sessao>"`. Abra a URL retornada no navegador integrado da IDE, quando disponível. Na raiz do projeto instalado, execute `node .pranchas-beta/cli.cjs --gerar --sessao "<pasta-da-sessao>" "<arquivo>"` ou use `--ideia "texto"`. Pelo terminal sem navegador integrado, o instalador abre a sessão no navegador padrão.
+
+O gerador consulta os especialistas de Jakub, resolve a skill original de desenho e sela a entrega. Use o [contrato do desenho](contrato.md), o [guia do conselho](conselho.md) e a [memória de pesquisa](pesquisa-de-produto.md). A sessão muda automaticamente para a prancha após as verificações.
 
 ## Entender a reunião
 

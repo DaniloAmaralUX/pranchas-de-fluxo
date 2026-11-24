@@ -2,7 +2,7 @@
   "name": "pranchas-catalogo",
   "private": true,
   "type": "module",
-  "scripts": {"dev": "node dev.mjs"},
+  "scripts": {"dev": "node dev.mjs", "apresentar": "node iniciar.mjs"},
   "dependencies": {"swiper": "12.2.0"},
   "devDependencies": {"esbuild": "0.28.2"}
 }

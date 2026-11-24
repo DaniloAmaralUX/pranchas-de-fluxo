@@ -1,4 +1,11 @@
 node_modules/
 tools/pranchas-cli/dist/
 .pranchas/
+.pranchas-beta/
+.agents/skills/pranchas-de-fluxo-beta/
+.claude/skills/pranchas-de-fluxo-beta/
+.cursor/skills/pranchas-de-fluxo-beta/
+.qwen/skills/pranchas-de-fluxo-beta/
+.afk/
+.agents/fontes/
 __pycache__/

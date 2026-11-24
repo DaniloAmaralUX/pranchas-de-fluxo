@@ -13,6 +13,7 @@ function help() {
   print('  node .pranchas-beta/cli.cjs [arquivo ...] [--stdin] [--ideia "texto"] [--offline] [--gerar] [--sem-abrir]');
   print('  --gerar entrega as fontes ao Codex CLI e ao provedor de IA configurado neste perfil.');
   print('  node .pranchas-beta/cli.cjs exemplo <pasta-nova>');
+  print('  node .pranchas-beta/cli.cjs --sessao-web');
   print('  node .pranchas-beta/cli.cjs --reproduzir <pasta-do-prototipo>');
   print('  node .pranchas-beta/cli.cjs orientacao');
   print('No chat do agente, anexe seu material ou abra o HANDOFF.md indicado no terminal.');
@@ -120,11 +121,11 @@ async function handoff(project, { files, idea, stdin, offline }) {
   }
 }
 
-async function openSession(project, entrada) {
+async function openSession(project, entrada, abrir = true) {
   const parent = path.join(project, 'sessoes');
   await fs.mkdir(parent, {recursive:true,mode:0o700});
   const pasta = await fs.mkdtemp(path.join(parent, 'sessao-'));
-  const viewer = await require('./visor.cjs').iniciar({pasta, abrir:true, entrada});
+  const viewer = await require('./visor.cjs').iniciar({pasta, abrir, entrada});
   print('Visor local: ' + viewer.url);
   return viewer;
 }
@@ -150,8 +151,14 @@ async function run(args) {
     print('Abra no navegador: ' + path.join(destination, 'index.html'));
     return;
   }
-  const options = parse(args);
   const project = path.resolve('.pranchas-beta');
+  if (args[0] === '--sessao-web') {
+    if (args.length !== 1) throw Error('Uso: --sessao-web');
+    await projectLauncher(project);
+    await openSession(project, true, false);
+    return;
+  }
+  const options = parse(args);
   await projectLauncher(project);
   const hasInput = options.files.length > 0 || options.idea || options.stdin;
   const show = options.open && !process.env.CI;

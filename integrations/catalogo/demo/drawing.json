@@ -1,0 +1,620 @@
+{
+  "title": "Pedido e aprovação para contrato",
+  "summary": "Estudo conceitual: aprovação antes da emissão; devolução com motivo, correção e reenvio. Dados ilustrativos. Não executa operações de negócio.",
+  "dependencies": "../../../skills/pranchas-de-fluxo/assets/node_modules",
+  "modelScripts": [
+    "model.js"
+  ],
+  "evidence": [
+    {
+      "id": "Reunião F01 · linha 1",
+      "file": "briefing.md",
+      "excerpt": "O gerente precisa aprovar o pedido antes da emissão do contrato."
+    },
+    {
+      "id": "Reunião F01 · linha 2",
+      "file": "briefing.md",
+      "excerpt": "Ao devolver, o gerente informa o motivo e a pessoa pode corrigir e reenviar."
+    }
+  ],
+  "scopeNotes": [
+    {
+      "statement": "As únicas fontes de produto são duas frases de F01; não há quadros da reunião. Câmera −76°/25°/0°, rótulos no plano e visor escuro seguem as referências de acabamento.",
+      "sources": [
+        "Reunião F01 · linha 1",
+        "Reunião F01 · linha 2"
+      ]
+    },
+    {
+      "statement": "H01: reenvio retorna ao gerente. H02: pessoa autorizada corrige. H03: emissão é etapa separada, com condições a definir. Campos e medidas são ilustrativos.",
+      "sources": [
+        "Reunião F01 · linha 1",
+        "Reunião F01 · linha 2"
+      ]
+    },
+    {
+      "statement": "As setas percorrem a revisão; só as ações do Percurso representam transições de negócio. Navegar no visor não concede aprovação real.",
+      "sources": [
+        "Reunião F01 · linha 1",
+        "Reunião F01 · linha 2"
+      ]
+    }
+  ],
+  "questions": [
+    "Quem pode corrigir, reenviar e emitir? Quais campos são corrigíveis?",
+    "Todo reenvio exige nova aprovação?",
+    "Alterações posteriores à aprovação invalidam a autorização?",
+    "Quais condições e resultados pertencem à emissão?",
+    "Qual limite do motivo, histórico e comportamento de falhas?"
+  ],
+  "drawings": [
+    {
+      "id": "analise",
+      "title": "Análise do gerente",
+      "flow": "Aprovar antes de emitir",
+      "requirement": "Conferir o pedido e decidir entre aprovar ou devolver com motivo.",
+      "description": "O gerente confere o pedido ilustrativo 024. Aprovar pedido muda sua situação; Devolver pedido abre a etapa do motivo. A emissão está bloqueada. As ações do Percurso simulam estados; a geometria não é formulário editável.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "APR-01",
+          "statement": "A aprovação do gerente precede a emissão.",
+          "rationale": "O documento vem antes das ações e do cadeado de emissão. Aguarda o gerente explica o bloqueio ao lado da condição.",
+          "parts": [
+            "pedido",
+            "situacao",
+            "emissao"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1"
+          ]
+        },
+        {
+          "id": "APR-02",
+          "statement": "Aprovar e devolver são decisões diferentes.",
+          "rationale": "As ações têm nomes completos na mesma zona. Devolver abre a página de motivo sem alterar ainda a situação.",
+          "parts": [
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1",
+            "Reunião F01 · linha 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Aprovar pedido",
+          "to": "aprovado"
+        },
+        {
+          "label": "Devolver pedido",
+          "to": "devolucao"
+        }
+      ],
+      "entry": true,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 36,
+          "emissao": 195,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao"
+        ]
+      }
+    },
+    {
+      "id": "devolucao",
+      "title": "Informar o motivo",
+      "flow": "Devolver e corrigir",
+      "requirement": "Informar o motivo antes de concluir a devolução do pedido.",
+      "description": "Página dedicada ao motivo. Revise o objeto é exemplo, não fala da reunião. O Percurso simula caso com motivo e tentativa sem motivo. Cancelar mantém o pedido aguardando.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "motivo",
+          "name": "Motivo da devolução"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "DEV-01",
+          "statement": "O gerente informa o motivo ao devolver.",
+          "rationale": "O campo Motivo da devolução tem contorno e rótulo persistente acima da ação. Na implementação: label associado, obrigatoriedade, validação textual e foco no campo inválido.",
+          "parts": [
+            "motivo",
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Concluir com motivo ilustrativo",
+          "to": "correcao"
+        },
+        {
+          "label": "Testar devolução sem motivo",
+          "to": "motivo-vazio"
+        },
+        {
+          "label": "Cancelar devolução",
+          "to": "analise"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 36,
+          "emissao": 195,
+          "motivo": 42,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "motivo"
+        ]
+      }
+    },
+    {
+      "id": "motivo-vazio",
+      "title": "Motivo ausente",
+      "flow": "Devolver e corrigir",
+      "requirement": "Explicar por que a devolução não pode continuar sem o motivo.",
+      "description": "Caso de validação proposto: o pedido continua aguardando, com emissão bloqueada. Informe o motivo fica junto ao campo. Corrigir retoma a etapa anterior; não há devolução silenciosa.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "motivo",
+          "name": "Motivo da devolução"
+        },
+        {
+          "id": "erro",
+          "name": "Erro associado ao motivo"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "DEV-02",
+          "statement": "Motivo vazio impede concluir a devolução.",
+          "rationale": "A borda do campo recebe realce e erro textual adjacente. Na implementação: aria-invalid, associação do erro, foco e preservação do conteúdo. Sem tremor ou animação.",
+          "parts": [
+            "motivo",
+            "erro",
+            "situacao",
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Informar o motivo",
+          "to": "devolucao"
+        },
+        {
+          "label": "Cancelar devolução",
+          "to": "analise"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 36,
+          "emissao": 195,
+          "motivo": 42,
+          "erro": 25,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "motivo",
+          "erro"
+        ]
+      }
+    },
+    {
+      "id": "correcao",
+      "title": "Pedido devolvido para correção",
+      "flow": "Devolver e corrigir",
+      "requirement": "Consultar o motivo, corrigir os dados e reenviar o pedido.",
+      "description": "O motivo permanece acima da edição. Objeto e Serviço revisado são ilustrativos; os campos corrigíveis não foram definidos. Reenviar não aprova. Não há editor real nem persistência neste estudo.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "motivo",
+          "name": "Motivo da devolução"
+        },
+        {
+          "id": "campos",
+          "name": "Dados corrigíveis do pedido"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "COR-01",
+          "statement": "A pessoa pode corrigir e reenviar após receber o motivo.",
+          "rationale": "Motivo, dados corrigíveis e Reenviar pedido formam a sequência de leitura. O motivo continua disponível; a UI futura deve mostrá-lo integralmente sem tooltip ou truncamento.",
+          "parts": [
+            "motivo",
+            "campos",
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 2"
+          ]
+        },
+        {
+          "id": "COR-02",
+          "statement": "Pedido devolvido não atende à condição de aprovação.",
+          "rationale": "Situação Devolvido, cadeado e explicação mantêm emissão bloqueada sem depender apenas de cor.",
+          "parts": [
+            "situacao",
+            "emissao"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1",
+            "Reunião F01 · linha 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Reenviar pedido corrigido",
+          "to": "reenviado"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 36,
+          "emissao": 195,
+          "motivo": 42,
+          "campos": 195,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "motivo",
+          "campos"
+        ]
+      }
+    },
+    {
+      "id": "reenviado",
+      "title": "Pedido reenviado",
+      "flow": "Retomar a análise",
+      "requirement": "Confirmar o reenvio e indicar a nova análise como hipótese.",
+      "description": "H01: o reenvio devolve o pedido ao gerente. O mesmo pedido ilustrativo é mantido; não há comparação de alterações. Pedido reenviado não significa Pedido aprovado.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "retorno",
+          "name": "Retorno textual da operação"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "REE-01",
+          "statement": "Hipótese: reenvio retorna à análise sem aprovação automática.",
+          "rationale": "O retorno confirma Pedido reenviado; a situação continua Aguardando e a emissão bloqueada. Reabrir análise leva ao gerente.",
+          "parts": [
+            "retorno",
+            "situacao",
+            "emissao",
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1",
+            "Reunião F01 · linha 2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Reabrir análise do gerente",
+          "to": "analise"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 36,
+          "emissao": 195,
+          "retorno": 195,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "retorno"
+        ]
+      }
+    },
+    {
+      "id": "aprovado",
+      "title": "Pedido aprovado",
+      "flow": "Aprovar antes de emitir",
+      "requirement": "Reconhecer a aprovação e distinguir o acesso à emissão do contrato.",
+      "description": "A decisão do gerente está concluída. A condição de aprovação foi atendida, mas o contrato não foi emitido. O acesso ilustrativo não presume que outras condições estejam satisfeitas.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "retorno",
+          "name": "Retorno textual da operação"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "APR-03",
+          "statement": "Aprovação não é emissão automática.",
+          "rationale": "Estado Aprovado e retorno Contrato ainda não emitido persistem. O cadeado aberto representa apenas a aprovação; a ação leva a outra etapa.",
+          "parts": [
+            "situacao",
+            "retorno",
+            "emissao",
+            "acoes"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Acessar emissão do contrato",
+          "to": "emissao"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 145,
+          "emissao": 195,
+          "retorno": 195,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "retorno"
+        ]
+      }
+    },
+    {
+      "id": "emissao",
+      "title": "Acesso à emissão",
+      "flow": "Encaminhar contrato",
+      "requirement": "Ver a aprovação atendida sem simular contrato já emitido.",
+      "description": "Fronteira do escopo: contrato é outra folha, ainda não emitida. Quem emite, demais critérios e resultado efetivo dependem do cliente. Não se inventa emissão concluída.",
+      "parts": [
+        {
+          "id": "estrutura",
+          "name": "Estrutura do pedido"
+        },
+        {
+          "id": "pedido",
+          "name": "Documento do pedido"
+        },
+        {
+          "id": "situacao",
+          "name": "Situação persistente do pedido"
+        },
+        {
+          "id": "emissao",
+          "name": "Condição de emissão do contrato"
+        },
+        {
+          "id": "contrato",
+          "name": "Contrato separado da aprovação"
+        },
+        {
+          "id": "acoes",
+          "name": "Ações da etapa"
+        }
+      ],
+      "rules": [
+        {
+          "id": "EMI-01",
+          "statement": "O percurso acessa a emissão somente após aprovar.",
+          "rationale": "Contrato é peça separada, Não emitido, junto a Aprovado e condição atendida. Não há ação de emissão nos estados aguardando ou devolvido.",
+          "parts": [
+            "contrato",
+            "situacao",
+            "emissao"
+          ],
+          "sources": [
+            "Reunião F01 · linha 1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "label": "Conferir pedido aprovado",
+          "to": "aprovado"
+        }
+      ],
+      "entry": false,
+      "concept": true,
+      "initialView": "assembled",
+      "colors": {
+        "hues": {
+          "estrutura": 195,
+          "pedido": 195,
+          "situacao": 145,
+          "emissao": 195,
+          "contrato": 195,
+          "acoes": 211
+        },
+        "fills": [
+          "estrutura",
+          "pedido",
+          "situacao",
+          "emissao",
+          "contrato"
+        ]
+      }
+    }
+  ]
+}
