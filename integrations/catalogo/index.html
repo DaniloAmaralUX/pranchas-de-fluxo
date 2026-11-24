@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#161719">
+  <title>Pranchas · Catálogo Supernova</title>
+  <link rel="stylesheet" href="/catalogo/bundle.css">
+  <link rel="stylesheet" href="/catalogo/design.css">
+  <script type="module" src="/catalogo/bundle.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Pranchas, início"><span class="brand-mark" aria-hidden="true"></span>Pranchas</a>
+    <nav aria-label="Navegação principal">
+      <a id="nav-catalog" href="/explorar/">Catálogo</a>
+      <a href="/visor/">Visor técnico</a>
+      <a class="create-link" href="/criar/" aria-label="Criar pranchas">Criar <span>pranchas</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="home" id="home" aria-labelledby="home-title" hidden>
+      <div class="intro">
+        <h1 id="home-title">Catálogo Supernova</h1>
+        <p id="collection-size">Telas e componentes para explorar.</p>
+        <a class="action" href="/explorar/">Explorar <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="coverflow" id="featured" aria-label="Telas em destaque">
+        <div class="swiper">
+          <div class="swiper-wrapper"></div>
+        </div>
+        <div class="deck-controls">
+          <button class="icon round" id="slide-prev" type="button" aria-label="Destaque anterior"><span aria-hidden="true">‹</span></button>
+          <p aria-live="polite"><strong id="slide-title"></strong><span id="slide-category"></span></p>
+          <button class="icon round" id="slide-next" type="button" aria-label="Próximo destaque"><span aria-hidden="true">›</span></button>
+        </div>
+        <div id="slide-dots" class="swiper-pagination" aria-label="Selecionar destaque"></div>
+      </div>
+      <div class="attribution">Carrossel baseado no <a href="https://skiper-ui.com/v1/skiper49" target="_blank" rel="noreferrer">Skiper 49 de Skiper UI</a>.</div>
+    </section>
+
+    <section class="collection" id="collection" aria-labelledby="collection-title" hidden>
+      <div class="collection-top">
+        <div><h1 id="collection-title">Telas do catálogo</h1><p id="collection-subtitle">Supernova</p></div>
+        <label class="search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.25 12.25 4 4"/></svg><input id="search" type="search" autocomplete="off" aria-label="Buscar telas ou categorias" placeholder="Buscar telas ou categorias"></label>
+      </div>
+      <div class="collection-layout">
+        <aside class="categories">
+          <p>Categorias</p>
+          <nav id="categories" aria-label="Categorias de telas"></nav>
+        </aside>
+        <div class="collection-content">
+          <div class="grid-header">
+            <div><h2 id="category-title">Todas as telas</h2><p id="category-description" hidden></p></div>
+            <label class="category-select"><span class="sr-only">Categoria</span><select id="mobile-categories"></select></label>
+            <span id="visible-count" role="status"></span>
+          </div>
+          <div class="grid" id="screens"></div>
+          <div class="empty" id="empty" hidden><p>Nenhuma tela para essa busca.</p><button type="button" id="clear">Limpar busca e filtros</button></div>
+        </div>
+      </div>
+    </section>
+    <p class="load-error" id="load-error" role="alert" hidden></p>
+  </main>
+
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div class="detail-layout">
+      <header class="detail-head">
+        <button id="close" class="icon round" type="button" aria-label="Fechar prévia">×</button>
+        <div class="detail-title"><p id="detail-category"></p><h2 id="detail-title"></h2></div>
+        <button id="appearance" class="plain-button" type="button" aria-label="Ver versão clara" aria-pressed="false"><span aria-hidden="true">◐</span> <span id="appearance-text">Versão clara</span></button>
+        <a class="action compact" id="open-demo">Abrir interativa <span aria-hidden="true">↗</span></a>
+      </header>
+      <div class="detail-stage">
+        <button class="icon round" id="prev" type="button" aria-label="Tela anterior"><span aria-hidden="true">‹</span></button>
+        <div class="detail-media" id="detail-media"><img id="detail-image" alt=""><p id="detail-unavailable" hidden>Prévia em preparação.</p></div>
+        <button class="icon round" id="next" type="button" aria-label="Próxima tela"><span aria-hidden="true">›</span></button>
+      </div>
+      <footer class="detail-foot" id="detail-position" aria-live="polite"></footer>
+    </div>
+  </dialog>
+</body>
+</html>

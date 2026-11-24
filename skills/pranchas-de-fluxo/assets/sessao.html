@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><title>Pranchas de fluxo</title>
+<style>
+*{box-sizing:border-box}html{background:#191919;color:#eee;font-family:Inter,system-ui,sans-serif}body{margin:0}main{min-height:100svh;display:grid;place-items:center;padding:clamp(1.5rem,6vw,5rem)}article{width:min(100%,34rem)}h1{font-size:clamp(1.8rem,5vw,2.75rem);font-weight:500;line-height:1.13;letter-spacing:-.055em;margin:.6em 0}p,label{line-height:1.55}label{display:block;color:#d3d3ce;margin-bottom:.5rem}textarea{width:100%;resize:vertical;min-height:8rem;border:1px solid #60615e;background:#202120;border-radius:.65rem;padding:1rem;color:#f7f7f4;font:inherit}button,.attach{border:1px solid #535550;border-radius:2rem;background:#282a28;color:#eee;padding:.65rem 1rem;font:inherit;cursor:pointer;position:relative;margin:0}.attach input{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer}button[type=submit]{color:#1a211d;background:#c7ded1;border-color:transparent}button:disabled{opacity:.55}.row{display:flex;justify-content:space-between;align-items:center;gap:.7rem;flex-wrap:wrap;margin-top:1rem}:focus-visible,.attach:focus-within{outline:2px solid #a0d6b8;outline-offset:4px}small,#files{display:block;font-size:.8rem;color:#b2b4b0;margin-top:.9rem}#files:empty{display:none}#mark{width:62px;height:62px;color:#b0d8c7;margin-bottom:1.5rem}#load{max-width:30rem}#phase{color:#b5b8b3}ol{display:flex;gap:4px;list-style:none;margin:2rem 0 0;padding:0}li{height:2px;flex:1;background:#414540}li[data-on]{background:#b0d8c7}#error{color:#f1b6a8;overflow-wrap:anywhere}[hidden]{display:none!important}.still{display:none}@media(prefers-reduced-motion:reduce){.moving{display:none}.still{display:block}}
+</style></head><body><main>
+<article id="entry" hidden><h1>O que precisa virar tela?</h1>
+<form id="form"><label for="idea">Descreva o fluxo ou anexe o material da reunião.</label>
+<textarea id="idea" name="ideia" placeholder="O que a pessoa quer fazer? O que precisa acontecer depois?"></textarea>
+<div class="row"><label class="attach">Anexar arquivos<input type="file" name="arquivos" multiple aria-label="Anexar arquivos da reunião"></label><button type="submit">Gerar pranchas <span aria-hidden="true">↗</span></button></div>
+<span id="files"></span><small>Áudio, vídeo ou documentos · até 256 MB por envio. A geração usa o provedor de IA configurado no seu Codex.</small></form><p id="error" role="alert"></p></article>
+<article id="load" aria-live="polite" hidden>
+<svg id="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+<path class="still" d="M6 16C11 16 13 8 18 8C23.333 8 23.333 16 18 16C13 16 11 8 6 8C.667 8 .667 16 6 16Z"/>
+<path class="moving" d="M12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4Z"><animate attributeName="d" dur="3s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines=".42 0 .58 1;.42 0 .58 1" values="M12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4Z;M6 16C11 16 13 8 18 8C23.333 8 23.333 16 18 16C13 16 11 8 6 8C.667 8 .667 16 6 16Z;M12 20C16.42 20 20 16.42 20 12C20 7.58 16.42 4 12 4C7.58 4 4 7.58 4 12C4 16.42 7.58 20 12 20Z"/></path></svg>
+<h1 id="step">Abrindo o visor</h1><p id="phase"></p><ol aria-hidden="true"><li></li><li></li><li></li><li></li></ol></article>
+<p id="network" role="status"></p></main>
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const stages={descobrir:['Lendo a reunião','Reunindo as fontes que sustentam o fluxo.'],definir:['Revisando os requisitos','Os especialistas estão confrontando as regras com o briefing.'],desenvolver:['Desenhando as telas','Montando as peças e ligando as decisões aos caminhos do fluxo.'],entregar:['Testando o percurso','Verificando o desenho no navegador e conferindo o contrato da entrega.']};
+let previous='',sending=false;
+const inputs=$('input[type=file]');
+inputs.addEventListener('change',()=>{$('#files').textContent=Array.from(inputs.files,f=>f.name).join(' · ')});
+function show(s){
+  if(s.tipo==='pronto'){location.replace('prancha'+location.hash);return}
+  const work=s.tipo==='carregando',key=JSON.stringify(s);
+  if(previous===key)return;previous=key;
+  $('#entry').hidden=work;$('#load').hidden=!work;
+  $('#error').textContent=s.tipo==='erro'?s.mensagem:'';
+  if(work){const [title,details]=stages[s.etapa]||['Preparando as pranchas',''];$('#step').textContent=title;$('#phase').textContent=details;document.title=title+' · Pranchas de fluxo';[...document.querySelectorAll('li')].forEach((li,i)=>li.toggleAttribute('data-on',i<=Object.keys(stages).indexOf(s.etapa)));}
+}
+async function poll(){try{const r=await fetch('estado',{cache:'no-store'});if(!r.ok)throw Error();const s=await r.json();if(!sending)show(s);$('#network').textContent='';}catch{$('#network').textContent='Reconectando ao visor local…'}setTimeout(poll,850)}
+$('#form').addEventListener('submit',async e=>{e.preventDefault();if(sending)return;const form=e.currentTarget;if(!$('#idea').value.trim()&&!inputs.files.length){$('#error').textContent='Escreva uma ideia ou selecione um arquivo.';$('#idea').focus();return}const payload=new FormData(form);sending=true;show({tipo:'carregando',etapa:'descobrir'});try{const r=await fetch('gerar',{method:'POST',body:payload});if(!r.ok)throw Error(await r.text());}catch(err){show({tipo:'erro',mensagem:err.message});}finally{sending=false;}});
+poll();
+</script></body></html>

@@ -1,0 +1,54 @@
+name: Validar integração do Pranchas
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main, 'experimental/**']
+  push:
+    branches: ['experimental/**']
+permissions:
+  contents: read
+jobs:
+  pacote:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CHROMIUM_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22.20.0
+          package-manager-cache: false
+      - name: Verificar o checkout público e o navegador
+        run: |
+          test -z "$(git ls-files -- 'integrations/catalogo/public/catalogo' ':(exclude)integrations/catalogo/public/catalogo/.gitignore')"
+          "$CHROMIUM_PATH" --version
+      - name: Instalar as dependências dos lockfiles
+        run: |
+          npm ci --prefix integrations/catalogo
+          npm ci --prefix integrations/ui-sdk
+          npm ci --prefix skills/pranchas-de-fluxo/assets
+          npm ci --prefix tools/pranchas-cli
+      - name: Reconstruir os componentes incorporados
+        run: |
+          npm run build --prefix integrations/ui-sdk
+          git diff --exit-code -- skills/pranchas-de-fluxo/assets/technical-drawing/assets
+      - name: Conferir as skills e testar o conselho com pareceres sintéticos
+        run: |
+          python3 tools/vendor-jakub.py
+          node --test integrations/conselho/check.cjs
+      - name: Gerar o instalador experimental
+        run: npm run bundle --prefix tools/pranchas-cli
+      - name: Testar a instalação e o fluxo de geração
+        run: npm run verify --prefix tools/pranchas-cli
+      - name: Testar regras, vistas e exportação no navegador
+        run: npm test --prefix integrations/ui-sdk
+      - name: Testar o catálogo com dados sintéticos
+        run: node integrations/catalogo/ci.mjs
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: pranchas-de-fluxo-experimental
+          path: tools/pranchas-cli/dist/*.tgz
+          if-no-files-found: error

@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "properties": {
+    "especialista": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "aplicavel",
+        "nao_aplicavel"
+      ]
+    },
+    "justificativa": {
+      "type": "string"
+    },
+    "fontes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trecho": {
+            "type": "string"
+          },
+          "local": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trecho",
+          "local"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "recomendacoes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "proposta": {
+            "type": "string"
+          },
+          "fontes": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "proposta",
+          "fontes"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "conflitos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pendencias": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "especialista",
+    "status",
+    "justificativa",
+    "fontes",
+    "recomendacoes",
+    "conflitos",
+    "pendencias"
+  ],
+  "additionalProperties": false
+}

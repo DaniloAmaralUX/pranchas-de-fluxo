@@ -1,0 +1,742 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/jakubkrehel/skills",
+  "currentCommit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+  "orchestrator": "technical-drawing",
+  "skills": [
+    {
+      "name": "afk",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/afk",
+      "entry": "skills/afk/SKILL.md",
+      "tree": "7b2101a32a9ee8ce0fbb2271809a156b7abf3dea",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "67f03cbf8e096511603fb000430b1c2fed2af7f1f151aef56e36f355c9accb86",
+          "gitBlob": "120f7a284262b82c8247723ca699ee51b15ea9bc"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "1f0f34f1022c4b9a0218f46ff4bd1cda0e5b4beb3dc87bb3a37b70a2d6f7867b",
+          "gitBlob": "604b493094e74f030fb8622a1ffbd7112059afeb"
+        }
+      ]
+    },
+    {
+      "name": "better-accessibility",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-accessibility",
+      "entry": "skills/better-accessibility/SKILL.md",
+      "tree": "2d28028caed2236244b0bb837abb8f3e148c302b",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "7f943812c4f3e89372fc2b094f73148dc1eb424676e8532dd57730b89016e32a",
+          "gitBlob": "e882d3cb0aee1ed4beb2f8f85a03b8ed79aedd9b"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "98699206d4fb00b72bcaf69bb446f541644cc0cc3d23967e266731e100a55563",
+          "gitBlob": "36b942fb8e5b86916b006c2fe4e07fdbde24a112"
+        },
+        {
+          "path": "focus-and-keyboard.md",
+          "sha256": "ace66413242a31df97f1d5101bddc98d871c97716cbc936a439291ea5fda7e54",
+          "gitBlob": "361ad8e51c83249d9dc16a97b4ae01883de08131"
+        },
+        {
+          "path": "forms.md",
+          "sha256": "ed63f7424eb1d3515e4261504467d77840317dda7c0df86c965ee334b3499589",
+          "gitBlob": "8f960cbb59f6dfd27cb47f6a962198659ff66dcd"
+        },
+        {
+          "path": "hit-areas.md",
+          "sha256": "c723a5c5a0935148dbf54dcc1b9fa140251f50a6e953ed79f77af498eae3b615",
+          "gitBlob": "9f9aa538683a0ba68b6164a8508164dd6109ca42"
+        },
+        {
+          "path": "motion-and-zoom.md",
+          "sha256": "743bae6a93843ff07ebb283d8de31e3ecd184e04f8de639b0e3b0949088fc13a",
+          "gitBlob": "e184315a5060f86107d4fb2951e884bf697cc399"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "6203f74162d308d844bd6db8b677502757da922b274ef72cacdba63819073659",
+          "gitBlob": "46d221bad48a6e0992d13377a285ed6f9002f794"
+        },
+        {
+          "path": "screen-readers.md",
+          "sha256": "a65faa6f28ef972b71328d5aaafb1c13fc9796b02bfa0557ae23a02569267c3b",
+          "gitBlob": "7da1b74995ee8bb6374e2aa17e694e7d55dc21bd"
+        },
+        {
+          "path": "semantics-and-aria.md",
+          "sha256": "dfbadab983f65cd5f666ee4e1aecdf9a243ea206876a3f575a12f0b1314f6e37",
+          "gitBlob": "24ab05c1d7fbdbd5900b5e7758bae23d06e91866"
+        }
+      ]
+    },
+    {
+      "name": "better-colors",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-colors",
+      "entry": "skills/better-colors/SKILL.md",
+      "tree": "3c3e731f1102df49cdd1f55d7ed8d34188d5c364",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "9337ae0216848e5fde233e6aa101c98286d8e70b967c5bd96bde08a29436b17e",
+          "gitBlob": "75c7d18a22e8c467fc9e181f32b82932d1a52f8c"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "9568572146c8d7d1dc2e12536c2b8ea63480f83f2f2ebfcf2f9a500a56830d4a",
+          "gitBlob": "27c2e70131abce32fd35a453a33747b26d2bc045"
+        },
+        {
+          "path": "color-formats.md",
+          "sha256": "3218f763a4dded7a599eb27482647cb3c500d241e1b67399fe7dbf28decb4007",
+          "gitBlob": "e3ab1d8985929585726c98a628b430821c385eb9"
+        },
+        {
+          "path": "color-usage.md",
+          "sha256": "2e7d775c85f7168ffb61dcf7be7b04c8928ebebc54b4848dfc49d37618bb14d0",
+          "gitBlob": "3e3fa19de1cf3b246d5f696b6c150bbdd77e72cf"
+        },
+        {
+          "path": "contrast.md",
+          "sha256": "25cbbe55c61530d6170ae11f45353c5ab8798e2781a73aea8caaf122151d1919",
+          "gitBlob": "b00abf672fe1a9433caa021cd03c542ef068d0f2"
+        },
+        {
+          "path": "palette-generation.md",
+          "sha256": "40c57150775debab7b073549c5e4a2cc8f9ec307e9045842eb57771f0e60c432",
+          "gitBlob": "cb4898c0017af56fbc47840ffbec741c27b2daa3"
+        },
+        {
+          "path": "palette-structure.md",
+          "sha256": "55b9ff6fa3064ffc3c252c06712b4e4bbd04161b3b18f90b961412a5e420285b",
+          "gitBlob": "7ad23b1e97868d3371ac0d7563876dab1a1c52a1"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "a1bc3a334d51ae7d48da0fb5807cecd36f4446913240edb3365793527ef16bec",
+          "gitBlob": "4a09ce64da7c6a5da92e86f45aa4cb4124938a19"
+        },
+        {
+          "path": "token-naming.md",
+          "sha256": "be879f4ef883f20c16b8aac3505e04c914fef2f230c601c9dec24eb36580c02a",
+          "gitBlob": "3e223635c6c65d9f9d578132a883f3fd56ad9b09"
+        }
+      ]
+    },
+    {
+      "name": "better-interface",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-interface",
+      "entry": "skills/better-interface/SKILL.md",
+      "tree": "03cb6427643188ad5ef76400bb46db5df8a27180",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "e93f1b6e60337ccca0b7caaea9da7cc60ba9dd86b08f958e03b0d1defa23100c",
+          "gitBlob": "64095eb409214878d78b809d14ac67e01b3556d3"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "541c5d823f474543d4f3a314a9292215f8c90c152249e72411ff3e3632cf55bc",
+          "gitBlob": "0dcd6987ffdec27825147b33ff3c7c1462fe4805"
+        },
+        {
+          "path": "review-format.md",
+          "sha256": "21655c85833395f0a617a54ae4517e365e663aada17d8995f0b4a65cf31d2697",
+          "gitBlob": "10da82dfabf13456eb5dbbf3bb290234fb6a190e"
+        }
+      ]
+    },
+    {
+      "name": "better-layout",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-layout",
+      "entry": "skills/better-layout/SKILL.md",
+      "tree": "64e4a3435623fc682c9c80e005dba3d1ffd87654",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "59599cf3087df9c28a1ada41532274704d16b23a1486288609b8943516d5be31",
+          "gitBlob": "7e4c3bf3c479d712c62a02a1e1924d30ed4076d3"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "d51a2ca663c9331f8f23b7a550e5f848f83e81361e21f2280cc384e99cc0ae15",
+          "gitBlob": "34531649df1a7af9638b3497e162124630fed965"
+        },
+        {
+          "path": "grouping-and-alignment.md",
+          "sha256": "30057c8e063a3cb0026140c82de0c16510080c7c306876caacba1206d7e2483a",
+          "gitBlob": "848d886ecd10454ce2dfd4a60009868156ef9443"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "57a9bb08903f5005254bf09fe771f72f383934272812c21160041a704121ee3c",
+          "gitBlob": "57ae18482a88f6c21992f3471b3fa9e867263d92"
+        },
+        {
+          "path": "spacing-and-adaptivity.md",
+          "sha256": "c823e1c53250497047d809206e4866a3de2ef335612e41d7422bde16cc6c93c0",
+          "gitBlob": "97882c0c8f95f5e722f939ff8722667bf077dae2"
+        }
+      ]
+    },
+    {
+      "name": "better-motion",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-motion",
+      "entry": "skills/better-motion/SKILL.md",
+      "tree": "fbcd0de994deb95d50db3b952dcfad7bce875b09",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "cb2da9e1ad468e2c3c80ec8070c0c3d1ecddd585834418cf0b45cc49e8dc82c3",
+          "gitBlob": "dff8e63fd5a90909e356454ecdd08a247bf994e2"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "e1041cbdd5991b9ac21029ea108172876ec7bfff5b00d26bd5a3f3ff38821d09",
+          "gitBlob": "b8406b74ba0f5ea65a0d03ef524831304b8ddfa3"
+        },
+        {
+          "path": "drag.md",
+          "sha256": "0f66fefb30518f9fd66e9d0c281048a1d755f118123381938c0520dc4bcbcc1b",
+          "gitBlob": "ad2dde5acb0ec67a49257eff7f18033df31de1d2"
+        },
+        {
+          "path": "enter-exit.md",
+          "sha256": "f06e041992dd06f6f4758d501794a86b9df7fa1f3feac7f34564bc3eac8eedf1",
+          "gitBlob": "8f59dbfe76f35b21acb13c3bb914dbfdec546667"
+        },
+        {
+          "path": "icon-transitions.md",
+          "sha256": "f89c6a3e63128a64e5502a37118977e30e52d857faa48b514f823fa3e42ae65e",
+          "gitBlob": "fc120cffc046b551811a05f75f22040280101a81"
+        },
+        {
+          "path": "layout-animation.md",
+          "sha256": "3c93a3cad5c1fa4425246526764521662ab18322eff0b81deb0154b44fd8fc7d",
+          "gitBlob": "6881b8cd2a63830997ffe5aa25fa49ba9577a70f"
+        },
+        {
+          "path": "performance.md",
+          "sha256": "4d8f37cd45317280563ccd636ff63756435a5ee5bcd7ec822fe85195d0b1347c",
+          "gitBlob": "18ecb4be4a2389f73aa4b918fc1208b652cf7bac"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "6678abcc298b094410621253d7fb19df6fe1970d4b667ca0b3987ec7cc6b24ea",
+          "gitBlob": "61236d29069819663cc2398dec1b39155174259d"
+        },
+        {
+          "path": "slow-motion.md",
+          "sha256": "23264f6b3ad314d4f5705fcf7d2a19b357720e7efca595e355c9dd8a2be60096",
+          "gitBlob": "9b6509f4c159c573006be8ad02fb66aa4d333839"
+        },
+        {
+          "path": "transitions.md",
+          "sha256": "2e9c791563df67fcb884a9a679051d90ddc3532321aa4e7cd078d5d7d386b507",
+          "gitBlob": "a473c7645c382dd82a49208fe125bcb2266ebad3"
+        }
+      ]
+    },
+    {
+      "name": "better-typography",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-typography",
+      "entry": "skills/better-typography/SKILL.md",
+      "tree": "cb24788c1816fa115ec38ac113a1f2f6faa5fa65",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "b3ce4facc8a774baa5b456d1f1958e91bf4b12e489789ea4308a25dcdc9bf2b4",
+          "gitBlob": "0939acbcb1bac9b3e2b6fedb708a848758b5aeaa"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "01d8b8f835112e97ba0e4d97a07775e919407ebb5aab0cce9b4fa280e66b19b8",
+          "gitBlob": "3baec7d2a846fd811bfa3bf0d41d37de931ad9f0"
+        },
+        {
+          "path": "choosing-fonts.md",
+          "sha256": "a5c1691ebc68d09f094638ed7133a4cd67d1a58e5d59f8cebce2562540ac1b46",
+          "gitBlob": "6fa00127499d868bb14c55e58e45f60ec9a54705"
+        },
+        {
+          "path": "css-cheat-sheet.md",
+          "sha256": "c8af752864f740583c183d1793bc6049c5e11475f4ddca16d325429f3578e3f8",
+          "gitBlob": "c9ec90c955d645f139e78f7f0df4c22de9928ea4"
+        },
+        {
+          "path": "details-and-accessibility.md",
+          "sha256": "705176db1784beed8b85086dd92dcfad6658e61fa8f9d017e648005029b7ab23",
+          "gitBlob": "bf12e53d65e5e0f07eb67c2dbcf00713754d247c"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "f644606a4e399860501c2f106987e7d5d34518e59e427402fcaed75b0eba2991",
+          "gitBlob": "cc6b4cf0ad7a0a397aab578fb481125b9f55833d"
+        },
+        {
+          "path": "spacing-and-sizing.md",
+          "sha256": "c82c5951893945c50acdb631fbf73a70bddc855ff56e58ded55012199fb7c183",
+          "gitBlob": "c267aeec1bf9bd78dcbcc29f64e463a8b4101f14"
+        },
+        {
+          "path": "variable-fonts-and-opentype.md",
+          "sha256": "bd590fbb10001e69771ddfd0eaec656d72de04eaccba45cae769dcc8c7e4963d",
+          "gitBlob": "98e57b65a500cc0d959478dbacbc9806e4c08882"
+        },
+        {
+          "path": "wrapping-and-punctuation.md",
+          "sha256": "db373af9d72884eb5d84cd7ad89a7e62519fe3e6cb03c7aa15f1bae818072e2c",
+          "gitBlob": "b16bcf6900ed6ce7d3dade58d28977925019b862"
+        }
+      ]
+    },
+    {
+      "name": "better-ui",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-ui",
+      "entry": "skills/better-ui/SKILL.md",
+      "tree": "ae1d93e57d1c83da9232bb00c3a5ea723e687c4c",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6e1d613ee9f8fd03cbfb9eb321252855779e88cff2c941e18f84b31f35faaff1",
+          "gitBlob": "b8bcea2a025607627c987f5db8c975178d3f5ab4"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "799e0b58bded32edf5c217f97e08c364660ec24234978b2e3f7dee1868bea871",
+          "gitBlob": "913f2004ff9dca87bedbf9c6da8922ca8b8b2d79"
+        },
+        {
+          "path": "icons.md",
+          "sha256": "8c927f41001a774665ecf8aebfec9757538c8788f482b6258e2f41565efa3cb5",
+          "gitBlob": "272c89a003f8088975e2d60493603b33aa8c6398"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "ef99d565552b45172c69410e073bbe1a198ef8160aa9b50b37fb661d440025d0",
+          "gitBlob": "a7755419c48e6cf2a4c293997a93686d00abb98e"
+        },
+        {
+          "path": "surfaces.md",
+          "sha256": "036f4957885754ed93f3256790c8b6d6280d068f5fb2cad7554d99acacd2930e",
+          "gitBlob": "47a607ef0adf44a322c9855d9697ad132406510e"
+        }
+      ]
+    },
+    {
+      "name": "better-writing",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/better-writing",
+      "entry": "skills/better-writing/SKILL.md",
+      "tree": "97bbdc122d2ba81755eb5be41870588d274430f1",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4e7f745ae1f6def19da579cbaa69f19d26ce7c5200d21e7bd14eb4e88fae51ce",
+          "gitBlob": "f52f9afef8d6a001beb9bccf26e921aeb4873587"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "a5aec7e0cbc87930962f139eff4341dcf87e83fd19b9447e3f614db2bc71de67",
+          "gitBlob": "92fca236728b3ff434cf2419968dcc22d67c9f0a"
+        },
+        {
+          "path": "patterns.md",
+          "sha256": "7ecc6a7d34f11cb501d31d8d3aff6e59ec211c096d0c8774daa9086a2224b2cf",
+          "gitBlob": "7b4ca5577bdd58d4da3fb7446654ac57dfb3083c"
+        },
+        {
+          "path": "reporting.md",
+          "sha256": "fc0fd488c6c0ce2e1a9987ed56f4e1eba08d203546884d55d320c127453c7bcf",
+          "gitBlob": "ed141316930e0d8f9d56e3544b8fa977848df2d8"
+        }
+      ]
+    },
+    {
+      "name": "break",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/break",
+      "entry": "skills/break/SKILL.md",
+      "tree": "9bd23fcda95792c88180e94eb97fd57f96c68023",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "bd8bc31723eb0a1c927edec30757cb16fb99309cf9614da87dd00dd96b406f34",
+          "gitBlob": "ff466ed48f3beb9b9adb54250320fa3cec9c95ba"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "e3e6b1a83f90763fa8cb166b4ec483ebc78fc84311fb0594d29f03d8ef76eddc",
+          "gitBlob": "00a29ecdafae3f2f443d0798c41b2c483eb2d9a1"
+        },
+        {
+          "path": "scenarios.md",
+          "sha256": "1db84afedc194c5959dfcb8ecad3466fc929e197159216c9db72588ed88c1fc5",
+          "gitBlob": "9042346559a6d6467567cc532a1982a898fa2aed"
+        }
+      ]
+    },
+    {
+      "name": "build-design",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/build-design",
+      "entry": "skills/build-design/SKILL.md",
+      "tree": "28a38cd30badf8fe9b8470a798f5bfe5224c0ded",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "91f92c3dc0a85b882ac83daabd09b47e05770a4f6c8348b1ae830606cf126664",
+          "gitBlob": "0d0c30190835b83fa6762344e1f5f0168e1e098a"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "858842fc00a7d7f086201a02c33af730d41fb00fab1ace92b7109fd8ba23f518",
+          "gitBlob": "06bbec881b75bd5c47fda012203e248c7d6cdd87"
+        },
+        {
+          "path": "figma.md",
+          "sha256": "998359b07687762f0d4a7dc320b76fb6e985ff1e468f91ef1a14e4bcaac18942",
+          "gitBlob": "e622e5acc3821d6837adb92cfa34b0596d4a5dc0"
+        }
+      ]
+    },
+    {
+      "name": "explain-interface",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/explain-interface",
+      "entry": "skills/explain-interface/SKILL.md",
+      "tree": "5cba41db62faa0bc9c334c19e7326f5f8ccdfe27",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6795aff9a133b94c6398a95b5c8958a2eaccade5db18f58e752bc02460a356e0",
+          "gitBlob": "c40dacde86b60bd698a0313287731257ed581fb1"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "3858853344ece1dd145523bd9d61c8905c4b2cb6c7307f023cc8666b8f4dc0bc",
+          "gitBlob": "d769d0479e81504c7287ac284d770fc5d6ad524d"
+        },
+        {
+          "path": "find-the-effect.md",
+          "sha256": "a3c1062ad1c1c46c6a2bb5378c7a6a93484f7d659264d416651c9f0e71838ca6",
+          "gitBlob": "f9508fdf20300882b14fc7a5b4184a93902eed88"
+        },
+        {
+          "path": "from-an-image.md",
+          "sha256": "b1a4b003815ad905242dabb099988932f0b5bf9441150758965cba0f073b76cf",
+          "gitBlob": "21d66dfa2e7377da463960174b1f4332f9366dc8"
+        },
+        {
+          "path": "no-browser.md",
+          "sha256": "8d48861e81ff1c1634a9d0f0ffa5108aef78087b32e3f60a16edd46d864e2b17",
+          "gitBlob": "bbcd3ea07a0a0e17acbb2b4f2cea1386f2a5ba4f"
+        },
+        {
+          "path": "read-the-system.md",
+          "sha256": "d21bcb5a9a1176a31a19b32f223a719326b9ad813db6f004f9a3e170bede7787",
+          "gitBlob": "a19cfc9df5e5278afa5be8cc1821a3d8bbac8de5"
+        }
+      ]
+    },
+    {
+      "name": "interface-review",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/interface-review",
+      "entry": "skills/interface-review/SKILL.md",
+      "tree": "fb445a4ba1cd5b5dfee2f76daa9020811ff075f8",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "57dbc1dae8b3386a4dbd8ff8b359af255af4b9d3abea905a8959544a10b8efea",
+          "gitBlob": "5430aa6f297faca3c61cf85feac9475dded515e0"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "c8bb068bbd40629f03d7d4c0284924f8df1dfdf7f1a7b0fabb88b265202fa23f",
+          "gitBlob": "496d63d47b88eef476ccf3c2cfdeb74d62701e78"
+        },
+        {
+          "path": "removed-signals.md",
+          "sha256": "85179b4e434cd2d2dbe68c0253e66d7f433a878147bfcdad8b904024c9e583cb",
+          "gitBlob": "b13f03c01b27d4aba6d00b52ca474101bdfb5f25"
+        },
+        {
+          "path": "scope-resolution.md",
+          "sha256": "7210fb22a51b5b08a2868866c65053dc214c61eb542a000f70464aebc2fba446",
+          "gitBlob": "93e51f98538e8cfeae29939ae626c1de03eb1155"
+        }
+      ]
+    },
+    {
+      "name": "state-machine",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/state-machine",
+      "entry": "skills/state-machine/SKILL.md",
+      "tree": "332a540b521abdc9d04a5115795ebccc95372b34",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "658ff671aaa710424520a99734adf44fc8b97baaf69e604b38776e7e96a7ae7e",
+          "gitBlob": "22ebdfd7168be129464b99d4e4dfba88211fdfba"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "46f496a379f86d7ecd91912505b7545abd462fcaaec6529d7fe39e88ae7535ff",
+          "gitBlob": "34ee7c74a5674aab55062f80999806e2c9b82171"
+        },
+        {
+          "path": "switcher.md",
+          "sha256": "32f0f1c82362557bfc7f83554359883b0c3d931d578ec8a7a390529699973c6d",
+          "gitBlob": "06b5bf7cefaf4182e6e46757b7e903d1d59cb4f2"
+        }
+      ]
+    },
+    {
+      "name": "upskill",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/upskill",
+      "entry": "skills/upskill/SKILL.md",
+      "tree": "ee0da0d1d5e5d76a15923c697ab1f25a6fecfa6b",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "47e293eda6f07be7991fcc1a4a35ea8a5db6a2035efac001b70ae45cb3a58e82",
+          "gitBlob": "b412fd2cb29aa570d74fd3507f2d2336003e1aac"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "b6af6987fb2a274a77f55454f6826a82721244f979be82d360a8a11814352e84",
+          "gitBlob": "429b9433a433df325e036efd2f81c10f9cccf1c0"
+        },
+        {
+          "path": "reader-brief.md",
+          "sha256": "6e05423dcfa3148c02fe8e8b7bc97cd2fe33d33225b1d69abd4ba8dc9fcdd2a2",
+          "gitBlob": "dedf4db605ccab44c9728eae9e8737341f4b8a3f"
+        },
+        {
+          "path": "sources.md",
+          "sha256": "2e92f8567a302ba5d8bc54687ae5c0fdd11062f707c9c95943eba4062e8dd4c8",
+          "gitBlob": "eca9994aba5400e0faf51542b17a56274934e850"
+        }
+      ]
+    },
+    {
+      "name": "variant",
+      "revision": "current",
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "directory": "skills/variant",
+      "entry": "skills/variant/SKILL.md",
+      "tree": "ed032836dd40dd22553052eb6ef268ca640c1113",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "4cfaf9113efa0ce3b41d6ece1c077067fbf1d4baf9bbd1f4ef902e69eff3abea",
+          "gitBlob": "1441f2af12b7cafaf13953e57e74cf56af4eabeb"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "24e006ea99aed264541692cfd778aa758ff111fa242ec81126fd51fdf1b29ff0",
+          "gitBlob": "bbbee43354574199fd2abbc6f07092bff0c81e44"
+        },
+        {
+          "path": "picker.md",
+          "sha256": "fe2e8564fd52df1699abc81d986b007df451791a32bfb0249c66f1904a6e0a34",
+          "gitBlob": "12ee27b2e905b693867b9698ed336dd2bfc724e0"
+        }
+      ]
+    },
+    {
+      "name": "technical-drawing",
+      "revision": "historical",
+      "commit": "16a6eb87b96479964d6686efc78ac6d29fba22aa",
+      "directory": "skills/technical-drawing",
+      "entry": "skills/technical-drawing/SKILL.md",
+      "tree": "7b7ff9e85c37de6462f19e3069f369fa9229fcbf",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "sha256": "6980e862b4e74389743666b35cc04cc4972f70926729980f6bfb8a1fea523b43",
+          "gitBlob": "20855392a12a4c47d66ccc073ec100e4ef0d5e78"
+        },
+        {
+          "path": "agents/openai.yaml",
+          "sha256": "c65ffc5f6ab53c9d375d4314debb22fab77d9b50a33ea88f41296c91a754d5d3",
+          "gitBlob": "ea3d2525692da5aeccaac6567dcde0219ca2ce13"
+        },
+        {
+          "path": "assets/export.js",
+          "sha256": "2f868e7cdb77ac2ca2da583c77d1b780d81267b73e3a0dbb655df4cd17feb38e",
+          "gitBlob": "7134b58bc8cc95a481b9a157a7176040c5a66298"
+        },
+        {
+          "path": "assets/geometry.js",
+          "sha256": "e9ea047144490ff141b498b96f5d5d6194ab90a9d6a6597ed7d1b01983dc8263",
+          "gitBlob": "f28cf21b17b489bfd5ef60fa6c28bcfffcf781d7"
+        },
+        {
+          "path": "assets/projection.js",
+          "sha256": "c74bc9085bd6b94db2a325d6b08d48e062f912fc7407e817b0617519594d9abe",
+          "gitBlob": "10fe3c135464aaa7847ef03fcacfc6e1fc92ebca"
+        },
+        {
+          "path": "assets/render-queue.js",
+          "sha256": "8abced3d453f9f2384171b38b515797186f2eafe4b4fa2ef93f7405a8624d37e",
+          "gitBlob": "33d2ff22e6fffb9091620df357637c7954e2fef0"
+        },
+        {
+          "path": "assets/sheet.js",
+          "sha256": "304218a3ab6dfae7abdc08d03c31060f69a6197d6948ed41396aea87e5e9b3e8",
+          "gitBlob": "53062333e982a7860520c9d2aa4fb4be3ec1c15c"
+        },
+        {
+          "path": "assets/theme.js",
+          "sha256": "9ee5f58a936d3563e9a0136dbfc16bbbe67981e1759f5067862cbe1fa6a2b18b",
+          "gitBlob": "3b0a97d8d98db330a33dbea4adca848c79863f9e"
+        },
+        {
+          "path": "assets/viewer.html",
+          "sha256": "8723ff686ac2ef7b7d624725db584025ff7d9220b59fcb13a0bb8ed466d83669",
+          "gitBlob": "39063f8ac515d9eb4da2a6291e2d20953ee6cfaa"
+        },
+        {
+          "path": "assets/viewer.js",
+          "sha256": "8f91ecdba18f620faa395917a32a7dfa335664d13193066f42db07f1f36307cc",
+          "gitBlob": "e4bf6507d389b51f163424f0dc2c538178a147c0"
+        },
+        {
+          "path": "assets/worker.js",
+          "sha256": "4682d36d09fd9ccea56e1612838fc20367a84d386d90a4475ffabde1b3a33149",
+          "gitBlob": "dc2170c3ea093bc29b40e372b84243e7d8674211"
+        },
+        {
+          "path": "exploded-views.md",
+          "sha256": "6a968a7a759745c07c06fa98365de76ab30a502a123780b9c7c8afb0f33a45ef",
+          "gitBlob": "98a277f7a624ed42f107bf83efb23e01ca033425"
+        },
+        {
+          "path": "geometry-library.md",
+          "sha256": "9779171f048a585e724aa4788907b0128b7dd2ff907a365b75f625b2fa0678ae",
+          "gitBlob": "859c632e427bdb3946bb88283343ecf387f9c335"
+        },
+        {
+          "path": "geometry.md",
+          "sha256": "a350075e0e9aefecf928068309bcf195a94bdabece3abc02677f8237e74d98fa",
+          "gitBlob": "4c80bdc3a498e4bfcc88936c52117fdde10d81e6"
+        },
+        {
+          "path": "preview-page.md",
+          "sha256": "34947a8fab61f37a8efb78479bad7d2dcd723fe1ccb000c0d649815ccefbf96f",
+          "gitBlob": "b1757913c1057e717e61f0a955d715f471603aa6"
+        },
+        {
+          "path": "scripts/build-viewer.cjs",
+          "sha256": "7b00368005dd275301a5db59c280a7c35e4d86d172786ae51eff313f08506c9f",
+          "gitBlob": "8d3b9604e9716cf84b3c2f93aaf8de5af62e0818"
+        },
+        {
+          "path": "scripts/check-viewer.cjs",
+          "sha256": "60eea8994d52fafa1c28665bb91b07092bf463d294608adf77bb60d8f40d6652",
+          "gitBlob": "5cbbe0b4c283c23ed6c5d6ee365dd12a8ddd2898"
+        },
+        {
+          "path": "scripts/commands.cjs",
+          "sha256": "b7eb5bf51612e168bef5c43d4bce6b42825f87edb705c554bc32c575df59fac5",
+          "gitBlob": "373fa2cdfd3767075f1048395868b936d942192f"
+        },
+        {
+          "path": "scripts/config.cjs",
+          "sha256": "7a1699de8bd0adda56ca435c25c049f735528416ecffd7e49f06c1e1c6c4bf32",
+          "gitBlob": "60cf644aa0221ab65ec058bf416c31bdeaef049a"
+        },
+        {
+          "path": "scripts/proof.cjs",
+          "sha256": "e36db21dbf39ea9cbeb533871de8f343bcfe23e623d6d478083ce155f4225369",
+          "gitBlob": "870ada48f36a4b6a5b183d14b285c883b48b0921"
+        },
+        {
+          "path": "scripts/test-geometry.cjs",
+          "sha256": "416e2aef74947b2dbb065ef3ff8135386106b6e711d06feddf4eac51d55e604f",
+          "gitBlob": "1f86f7fb98c26a2286f4fc92e54c332063103231"
+        },
+        {
+          "path": "scripts/test-render-queue.cjs",
+          "sha256": "bd690d8261834a960c20cfcaa55cf2bc08b7555fcb251f69ef9a1a0039b3ddf7",
+          "gitBlob": "18a93718443a7393da935ccec167b587ca39af05"
+        },
+        {
+          "path": "scripts/test-theme.cjs",
+          "sha256": "46836ac8dc75336395b865ddec4e7e4930355831b46cdf799d1fd9dce1213f0e",
+          "gitBlob": "c629ae32f0d7172301fb67a2dfe9d88c990c55a2"
+        },
+        {
+          "path": "scripts/test-viewer-builder.cjs",
+          "sha256": "2b3817b2161b93b8ecbb6ba5d8529b87ec43b7cc92a0e7f7f60317c3aced8ad4",
+          "gitBlob": "d560464ec6597a190e5c08348717c074c2c98557"
+        },
+        {
+          "path": "sheet-and-svg.md",
+          "sha256": "d4e14ce68e5986c04f57d209080ebf5f0878f4d00ed29c67fa7655ac9269cf99",
+          "gitBlob": "50fa3d19bf3a9af7af7e36e0048c0cc3410b6d7c"
+        },
+        {
+          "path": "verification.md",
+          "sha256": "a89a0405ce7789626555468f9fb2730d6b058f5000ec519c3d4a7afd64592832",
+          "gitBlob": "f3142d518e0ceac4261a0aef28d53a7bdb13c1e1"
+        },
+        {
+          "path": "viewer-assets.md",
+          "sha256": "4ee881ffee5e176ad5ba87954ab72142cead053990943922d7ed71a543e52e41",
+          "gitBlob": "20f10d8e8c3f63d08f3ef79b34be3b00ce313b76"
+        },
+        {
+          "path": "views-and-annotations.md",
+          "sha256": "79d7816f553047aa9678f6ae6585e155304b61d5f02a41c1ebbd4e6eda372313",
+          "gitBlob": "352d658f269e8ce1bcb11a7127509ef934fece43"
+        }
+      ]
+    }
+  ],
+  "licenses": [
+    {
+      "commit": "672ae44ace6aaed65b86cbb1e2fd6fbea0e79578",
+      "path": "LICENSE",
+      "sha256": "ed1dfe988fc40511b4845ccd9050a143a2002fee3bedc8064c47fa342b5d8d4f",
+      "gitBlob": "6a067e906e1346e640a0cda6ed37c5fb793104e4"
+    },
+    {
+      "commit": "16a6eb87b96479964d6686efc78ac6d29fba22aa",
+      "path": "LICENSE",
+      "sha256": "ed1dfe988fc40511b4845ccd9050a143a2002fee3bedc8064c47fa342b5d8d4f",
+      "gitBlob": "6a067e906e1346e640a0cda6ed37c5fb793104e4"
+    }
+  ]
+}

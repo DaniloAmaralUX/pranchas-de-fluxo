@@ -19,7 +19,7 @@ const ci = cwd => run([npm, 'ci', '--ignore-scripts', '--prefer-offline', '--no-
 try {
   fs.mkdirSync(output, { recursive: true });
   fs.mkdirSync(staging);
-  for (const name of ['install.mjs', 'package.json', 'package-lock.json', 'README.md']) {
+  for (const name of ['install.mjs', 'intent.mjs', 'prepare-intent.mjs', 'project-skill.mjs', 'package.json', 'package-lock.json', 'README.md']) {
     fs.copyFileSync(path.join(__dirname, name), path.join(staging, name));
   }
   fs.copyFileSync(path.join(repo, 'LICENSE'), path.join(staging, 'LICENSE'));
@@ -27,9 +27,14 @@ try {
     recursive: true,
     filter: file => !['node_modules', '__pycache__', '.git'].includes(path.basename(file))
   });
+  fs.cpSync(path.join(repo, 'vendor/jakub'), path.join(staging, 'upstream/jakub'), {recursive: true});
   for (const name of ['entrada.cjs', 'project.cjs', 'gerar.cjs']) {
     fs.copyFileSync(path.join(__dirname, name), path.join(skill, 'scripts', name));
   }
+  const {version} = require('./package.json');
+  const launcher = path.join(skill, 'scripts', 'project.cjs');
+  fs.writeFileSync(launcher, fs.readFileSync(launcher, 'utf8').replace('__PRANCHAS_VERSION__', version));
+  fs.writeFileSync(path.join(skill, 'package-version.json'), JSON.stringify({version}) + '\n');
   fs.mkdirSync(prepared);
   run([path.join(skill, 'scripts/init.cjs'), example], temp);
   ci(example);
@@ -46,6 +51,8 @@ try {
     if (from) fs.copyFileSync(from, path.join(prepared, name));
   }
   ci(staging);
+  run([path.join(staging, 'node_modules/@tanstack/intent/dist/cli.mjs'), 'validate', 'skills', '--check'], staging);
+  run(['--input-type=module', '-e', "import {validateSkill} from './intent.mjs'; validateSkill('skills/pranchas-de-fluxo')"], staging);
   run([npm, 'pack', '--ignore-scripts', '--silent', '--pack-destination', output], staging);
 } finally {
   fs.rmSync(temp, { recursive: true, force: true, maxRetries: 4 });

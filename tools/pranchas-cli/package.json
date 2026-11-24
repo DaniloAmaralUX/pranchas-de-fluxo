@@ -1,12 +1,14 @@
 {
   "name": "pranchas-de-fluxo",
-  "version": "1.0.0",
+  "version": "1.1.0-beta.1",
+  "repository": { "type": "git", "url": "git+https://github.com/DaniloAmaralUX/pranchas-de-fluxo.git" },
   "private": true,
+  "keywords": ["tanstack-intent", "agent-skills", "wireframes"],
   "description": "Wireframes técnicos navegáveis a partir de um briefing na IDE",
   "bin": { "pranchas-de-fluxo": "install.mjs" },
   "engines": { "node": ">=22.20.0" },
   "scripts": { "bundle": "node pack.cjs", "verify": "node check.cjs" },
-  "files": ["install.mjs", "skills/**", "README.md", "LICENSE"],
-  "dependencies": { "skills": "1.9.0" },
-  "bundleDependencies": ["skills"]
+  "files": ["install.mjs", "intent.mjs", "prepare-intent.mjs", "project-skill.mjs", "skills/**", "upstream/**", "README.md", "LICENSE"],
+  "dependencies": { "@tanstack/intent": "0.5.6", "skills": "1.9.0" },
+  "bundleDependencies": ["@tanstack/intent", "skills"]
 }
